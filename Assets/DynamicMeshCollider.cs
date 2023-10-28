@@ -6,7 +6,7 @@ public class DynamicMeshCollider : MonoBehaviour
 {
 
     SkinnedMeshRenderer meshRenderer;
-    MeshCollider collider;
+    MeshCollider _myCollider;
 
     private bool isRebuilding = true;
 
@@ -23,21 +23,21 @@ public class DynamicMeshCollider : MonoBehaviour
     {
 
         meshRenderer = gameObject.GetComponent<SkinnedMeshRenderer>();
-        collider = gameObject.GetComponent<MeshCollider>();
-        // StartCoroutine(RebuildMesh());
+        _myCollider = gameObject.GetComponent<MeshCollider>();
+        StartCoroutine(RebuildMesh());
     }
 
     // Update is called once per frame
     void Update()
     {
-        Rebuild();
+        // Rebuild();
     }
 
     void Rebuild() {
         Mesh colliderMesh = new Mesh();
         meshRenderer.BakeMesh(colliderMesh);
-        collider.sharedMesh = null;
-        collider.sharedMesh = colliderMesh;
+        _myCollider.sharedMesh = null;
+        _myCollider.sharedMesh = colliderMesh;
     }
 
 
