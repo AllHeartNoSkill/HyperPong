@@ -15,28 +15,37 @@ public class BallMovement : MonoBehaviour
 
     void Update()
     {
-        MoveBall(ballDirection);
+        MoveBall();
+
+        if(ballTransform.position.y < -10){
+            ballTransform.position = new Vector3(-8f, 0, 0);
+            ballDirection = new Vector3(1, 0, 0);
+        }
     }
 
-    void MoveBall(Vector3 direction){
+    void MoveBall(){
         // determine speed modifier from direction
         float speedModifier = 1f;
 
-        Vector3 temp = ballTransform.position;
-        temp += baseSpeed * speedModifier * direction * Time.deltaTime;
+        // Vector3 temp = ballTransform.position;
+        // temp += 
 
-        gameObject.transform.position = temp;
+        ballTransform.position += baseSpeed * speedModifier  * Time.deltaTime * ballDirection;
     }
 
     private void OnCollisionEnter(Collision other) {
-        ContactPoint[] contacts = other.contacts;
-        // int i = 0;
-        // foreach(ContactPoint contact in contacts){
-        //     i++;
-        //     Debug.Log("hit " + i + contact.normal);
-        // }
+        if(other.gameObject.tag == "Bounce Wall"){
+            ContactPoint[] contacts = other.contacts;
+            // int i = 0;
+            // foreach(ContactPoint contact in contacts){
+            //     i++;
+            // }
 
-        ballDirection = Vector3.Reflect(ballDirection, contacts[0].normal);
+            Debug.Log("hit " + contacts[0].normal);
+            ballDirection = Vector3.Reflect(ballDirection, contacts[0].normal);
+            Debug.Log("newDie " + ballDirection);
+
+        }
 
     }
 }
