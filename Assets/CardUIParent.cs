@@ -12,6 +12,11 @@ public class CardUIParent : MonoBehaviour
 
     [SerializeField] int powerCardId;
     public PowerCard powerCard;
+
+    private void Start() {
+        powerCard = PowerReference.instance.powerCards[powerCardId];
+        cardUI.AssignImage(powerCard.cardSprite);
+    }
     
     public void SelectCard(){
         confirmationUI.SetActive(true);

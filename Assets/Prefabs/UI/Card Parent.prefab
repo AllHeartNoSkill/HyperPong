@@ -430,6 +430,8 @@ MonoBehaviour:
   confirmationUI: {fileID: 6956081874319397984}
   confirmButton: {fileID: 735490018269685874}
   eventSystem: {fileID: 0}
+  powerCardId: 0
+  powerCard: {fileID: 0}
 --- !u!1 &6886098181383194519
 GameObject:
   m_ObjectHideFlags: 0
@@ -666,6 +668,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   description: {fileID: 6886098181383194519}
   cardParent: {fileID: 6792569848532003894}
+  cardImage: {fileID: 9108536693009369150}
 --- !u!1 &7450110944483460551
 GameObject:
   m_ObjectHideFlags: 0

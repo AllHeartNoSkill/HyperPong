@@ -2,11 +2,13 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
+using UnityEngine.UI;
 
 public class CardUI : MonoBehaviour, ISelectHandler, IDeselectHandler, ISubmitHandler// required interface when using the OnSelect method.
 {
     [SerializeField] GameObject description;
     [SerializeField] CardUIParent cardParent;
+    [SerializeField] private Image cardImage;
 
     public void OnSelect(BaseEventData eventData)
     {
@@ -23,5 +25,9 @@ public class CardUI : MonoBehaviour, ISelectHandler, IDeselectHandler, ISubmitHa
     public void OnSubmit(BaseEventData eventData)
     {
         cardParent.SelectCard();
+    }
+
+    public void AssignImage(Sprite sprite){
+        cardImage.sprite = sprite;
     }
 }

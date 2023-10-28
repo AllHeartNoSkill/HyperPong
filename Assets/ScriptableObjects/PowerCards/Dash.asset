@@ -12,9 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 905eb8ed23389fd4d9ac5c1cf219ace1, type: 3}
   m_Name: Dash
   m_EditorClassIdentifier: 
-  id: 
-  cardSprite: {fileID: 0}
-  activeDescription: 
+  id: Dash
+  cardSprite: {fileID: 21300000, guid: ac998ef8440454c4a833374ccc65d2c5, type: 3}
+  activeDescription: dashes in a direction
   duration: 0
-  chargeTime: 0
-  passiveDescription: 
+  chargeTime: 5
+  passiveDescription: increase player speed 20%
+  type: 1
