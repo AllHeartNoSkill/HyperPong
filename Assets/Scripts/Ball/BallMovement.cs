@@ -11,6 +11,7 @@ public class BallMovement : MonoBehaviour
     [SerializeField] private float castRadius = 1f;
 
     private Transform ballTransform;
+    private Vector3 _lastFramePosition;
     private Rigidbody _rigidBody;
     private GameObject _lastCollidedObject;
 
@@ -20,15 +21,17 @@ public class BallMovement : MonoBehaviour
         ballTransform = gameObject.transform;
     }
 
-    void Start()
-    {
-        
-    }
-
     void Update()
     {
-        CheckForCollision();
+        _lastFramePosition = ballTransform.position;
         MoveBall();
+        CheckForCollision(ballTransform.position);
+        CheckForCollision(_lastFramePosition);
+        
+        if (Input.GetKeyDown(KeyCode.R))
+        {
+            ResetBall();
+        }
     }
 
     [ContextMenu("Reset Ball")]
@@ -40,25 +43,40 @@ public class BallMovement : MonoBehaviour
 
     void MoveBall(){
         // determine speed modifier from direction
-        float speedModifier = 1f;
-
-        ballTransform.position += baseSpeed * speedModifier  * Time.deltaTime * ballDirection;
+        ballTransform.position += baseSpeed  * Time.deltaTime * ballDirection;
     }
 
-    void CheckForCollision(){
+    void CheckForCollision(Vector3 startPosition){
         RaycastHit hit;
-
-        Vector3 p1 = transform.position;
         float distanceToObstacle = 0;
 
-        if (Physics.SphereCast(p1, castRadius / 2, ballDirection, out hit, 10))
+        if (Physics.SphereCast(startPosition, castRadius, ballDirection, out hit, 1))
         {
             distanceToObstacle = hit.distance;
+            print(distanceToObstacle);
             if(distanceToObstacle < castRadius){
-                ballDirection = Vector3.Reflect(ballDirection, hit.normal);
-                Debug.Log("hit " + ballDirection);
-
+                ReflectBall(hit);
             }
         }
+    }
+
+    private void ReflectBall(RaycastHit hit)
+    {
+        if (hit.transform.TryGetComponent(out PlayerMovement player))
+        {
+            ballDirection = player.GetDirectionRelativeToPlayer(hit.point);
+        }
+        else
+        {
+            ballDirection = Vector3.Reflect(ballDirection, hit.normal).normalized;
+        }
+
+        ballDirection.z = 0;
+        Debug.Log("hit " + ballDirection);
+    }
+
+    private void OnDrawGizmos()
+    {
+        Gizmos.DrawSphere(transform.position, castRadius);
     }
 }

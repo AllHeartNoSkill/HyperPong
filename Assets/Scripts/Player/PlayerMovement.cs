@@ -10,6 +10,7 @@ public class PlayerMovement : MonoBehaviour
     [Header("Player Data")]
     [SerializeField] private float _speed = 5;
     [SerializeField] private bool _invertMove = false;
+    [SerializeField] private float _ballAimReduction = 5f;
     
     [Header("Path Follower")]
     [SerializeField] private PathCreator _pathCreator;
@@ -27,7 +28,8 @@ public class PlayerMovement : MonoBehaviour
             _pathCreator.pathUpdated += OnPathChanged;
             _maxDistance = _pathCreator.path.length;
             _currentDistance = _maxDistance / 2;
-            transform.position = _pathCreator.path.GetPointAtDistance(_currentDistance, _endOfPathInstruction);
+            
+            TraversePath();
         }
     }
 
@@ -43,6 +45,12 @@ public class PlayerMovement : MonoBehaviour
     public void MoveInput(float axis)
     {
         _moveAxis = axis * (_invertMove ? -1 : 1);
+    }
+
+    public Vector3 GetDirectionRelativeToPlayer(Vector3 hitPoint)
+    {
+        Vector3 result = hitPoint - (transform.position + transform.up * _ballAimReduction);
+        return result.normalized;
     }
 
     private void TraversePath()
