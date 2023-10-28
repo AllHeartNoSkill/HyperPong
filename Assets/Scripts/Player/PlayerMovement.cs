@@ -27,6 +27,7 @@ public class PlayerMovement : MonoBehaviour
             _pathCreator.pathUpdated += OnPathChanged;
             _maxDistance = _pathCreator.path.length;
             _currentDistance = _maxDistance / 2;
+            transform.position = _pathCreator.path.GetPointAtDistance(_currentDistance, _endOfPathInstruction);
         }
     }
 
@@ -34,6 +35,7 @@ public class PlayerMovement : MonoBehaviour
     {
         if (_moveAxis != 0)
         {
+            SetDistance();
             TraversePath();
         }
     }
@@ -45,10 +47,14 @@ public class PlayerMovement : MonoBehaviour
 
     private void TraversePath()
     {
-        _currentDistance += _speed * _moveAxis * Time.deltaTime;
-        _currentDistance = Mathf.Clamp(_currentDistance, 0f, _maxDistance);
         transform.position = _pathCreator.path.GetPointAtDistance(_currentDistance, _endOfPathInstruction);
         transform.rotation = _pathCreator.path.GetRotationAtDistance(_currentDistance, _endOfPathInstruction);
+    }
+
+    private void SetDistance()
+    {
+        _currentDistance += _speed * _moveAxis * Time.deltaTime;
+        _currentDistance = Mathf.Clamp(_currentDistance, 0f, _maxDistance);
     }
     
     private void OnPathChanged() 
