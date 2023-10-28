@@ -5,20 +5,22 @@ using UnityEngine;
 
 public class BallMovement : MonoBehaviour
 {
-
     [SerializeField] private float baseSpeed = 1f; // shouldn't be here
     [SerializeField] private Vector3 ballDirection = new Vector3(1, 0, 0);
     [SerializeField] private float castRadius = 1f;
 
     private Transform ballTransform;
     private Vector3 _lastFramePosition;
-    private Rigidbody _rigidBody;
     private GameObject _lastCollidedObject;
 
     private void Awake()
     {
-        _rigidBody = GetComponent<Rigidbody>();
         ballTransform = gameObject.transform;
+    }
+
+    public void Init(Vector3 startDirection)
+    {
+        ballDirection = startDirection;
     }
 
     void Update()
@@ -53,7 +55,6 @@ public class BallMovement : MonoBehaviour
         if (Physics.SphereCast(startPosition, castRadius, ballDirection, out hit, 1))
         {
             distanceToObstacle = hit.distance;
-            print(distanceToObstacle);
             if(distanceToObstacle < castRadius){
                 ReflectBall(hit);
             }
@@ -62,6 +63,8 @@ public class BallMovement : MonoBehaviour
 
     private void ReflectBall(RaycastHit hit)
     {
+        CheckGoalPost(hit);
+        
         if (hit.transform.TryGetComponent(out PlayerMovement player))
         {
             ballDirection = player.GetDirectionRelativeToPlayer(hit.point);
@@ -73,6 +76,15 @@ public class BallMovement : MonoBehaviour
 
         ballDirection.z = 0;
         Debug.Log("hit " + ballDirection);
+    }
+
+    private void CheckGoalPost(RaycastHit hit)
+    {
+        if (hit.transform.TryGetComponent(out LevelGoal goal))
+        {
+            goal.BallTouchGoal();
+            gameObject.SetActive(false);
+        }
     }
 
     private void OnDrawGizmos()
