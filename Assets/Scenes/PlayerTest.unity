@@ -409,6 +409,10 @@ PrefabInstance:
       propertyPath: m_CollisionDetection
       value: 2
       objectReference: {fileID: 0}
+    - target: {fileID: 420025606611415829, guid: f556d7a46eaed924296bffe91de270fe, type: 3}
+      propertyPath: castRadius
+      value: 0.4
+      objectReference: {fileID: 0}
     - target: {fileID: 2273718924096005175, guid: f556d7a46eaed924296bffe91de270fe, type: 3}
       propertyPath: m_LocalScale.x
       value: 1
