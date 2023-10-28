@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class GameplayUI : MonoBehaviour
+public class PowerReference : MonoBehaviour
 {
-    
+    public PowerCard[] powerCards;
 }
