@@ -1,7 +1,9 @@
 using System.Collections;
 using System.Collections.Generic;
+using BrunoMikoski.AnimationSequencer;
 using UnityEngine;
 using UnityEngine.InputSystem.UI;
+using BrunoMikoski.AnimationSequencer;
 
 public class CardUIParent : MonoBehaviour
 {

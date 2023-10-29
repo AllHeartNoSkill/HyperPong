@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using BrunoMikoski.AnimationSequencer;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
@@ -10,8 +11,11 @@ public class CardUI : MonoBehaviour, ISelectHandler, IDeselectHandler, ISubmitHa
     [SerializeField] CardUIParent cardParent;
     [SerializeField] private Image cardImage;
 
+    [SerializeField] AnimationSequencerController sequence;
+
     public void OnSelect(BaseEventData eventData)
     {
+        sequence.Play();
         description.SetActive(true);
     }
 

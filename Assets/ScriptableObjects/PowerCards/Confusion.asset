@@ -14,8 +14,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   id: Brick Wall
   cardSprite: {fileID: 21300000, guid: 669190ad7819ccb40a9bb5e4f48e7052, type: 3}
-  activeDescription: give bricks style defensive behind player
-  duration: 20
+  activeDescription: Reverse enemy's control when the ball is in player's area
+  duration: 10
   chargeTime: 0
   passiveDescription: 
   type: 2
