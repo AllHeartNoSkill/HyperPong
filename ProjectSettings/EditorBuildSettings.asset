@@ -21,12 +21,12 @@ EditorBuildSettings:
     path: Assets/Scenes/ReadyScenes/PlayerScene.unity
     guid: 15639af8366479b41b5ee9d5e9240875
   - enabled: 1
-    path: Assets/Scenes/ReadyScenes/Levels/Level1.unity
+    path: Assets/Scenes/ReadyScenes/Levels/LevelScene1.unity
     guid: 6ce7afe554d73364cad0b766f155d3b5
   - enabled: 1
-    path: Assets/Scenes/ReadyScenes/Levels/Level2.unity
+    path: Assets/Scenes/ReadyScenes/Levels/LevelScene2.unity
     guid: 826b6224d7846bd468690ee86f9aa41e
   - enabled: 1
-    path: Assets/Scenes/ReadyScenes/Levels/Level3.unity
+    path: Assets/Scenes/ReadyScenes/Levels/LevelScene3.unity
     guid: 29961e71d8e4a2f45b9404a261fe9f30
   m_configObjects: {}

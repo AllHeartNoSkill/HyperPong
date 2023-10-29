@@ -237,9 +237,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: aeceed4fd6537a940a9b74a5413adf55, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _levelLoadedData: {fileID: 11400000, guid: 596daf05ff804224da414611aaedcdbf, type: 2}
   _randomAngle: 60
   _ballPrefab: {fileID: 6709257163267862226, guid: f556d7a46eaed924296bffe91de270fe, type: 3}
   _ballSpawnPoint: {fileID: 316241223}
+  _minBallSpeed: 10
+  _maxBallSpeed: 25
+  _speedIncrement: 0.2
+  _roundRestartIncrementMul: 3
   _roundStartEvent: {fileID: 11400000, guid: 24c55440966617d4789279d81cd3abe7, type: 2}
   _roundEndEvent: {fileID: 11400000, guid: 72437380621afb04b8f8ae52b046f63d, type: 2}
 --- !u!4 &256785148
@@ -387,7 +392,7 @@ Transform:
   m_GameObject: {fileID: 316241222}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.106847584, y: -0.53649116, z: -0.004709244}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -881,7 +886,7 @@ GameObject:
   - component: {fileID: 1394524652}
   - component: {fileID: 1394524651}
   m_Layer: 0
-  m_Name: Data Saver
+  m_Name: Level Daata
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

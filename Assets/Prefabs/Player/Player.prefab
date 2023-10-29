@@ -95,6 +95,7 @@ GameObject:
   - component: {fileID: 7249904816150659850}
   - component: {fileID: 7378481069012533322}
   - component: {fileID: 2608965249746299201}
+  - component: {fileID: 971094957438282718}
   - component: {fileID: 4489395352407692777}
   - component: {fileID: 1233607545589260649}
   m_Layer: 0
@@ -132,6 +133,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 97b57c28475e44b46a93c26618dacc0c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _matchBeginEvent: {fileID: 11400000, guid: e369a5de1a2fca44db67ceb7054498ce, type: 2}
+  _matchEndEvent: {fileID: 11400000, guid: 16ad26e5924bd474fb60b3ca65a6cc5b, type: 2}
 --- !u!114 &2608965249746299201
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -144,11 +147,36 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fd6600e0a9a18824580eeff48b5ca38a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _levelLoadedData: {fileID: 11400000, guid: 596daf05ff804224da414611aaedcdbf, type: 2}
+  _levelLoadedEvent: {fileID: 11400000, guid: 3096b7e8879b4a3479543d226adc6f0b, type: 2}
+  _playerType: 0
   _speed: 5
   _invertMove: 1
   _ballAimReduction: 1
   _pathCreator: {fileID: 0}
   _endOfPathInstruction: 2
+--- !u!114 &971094957438282718
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5939103122951190761}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe3f3a235e166164ea578b734fd22145, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _ballBounceEvent: {fileID: 11400000, guid: 1cb0d29cc82c01c45bd67725e9d97b85, type: 2}
+  _ballPassMiddle: {fileID: 11400000, guid: 541fb3c97f2612b489f2ee2cef135bdd, type: 2}
+  _testPowerUp: 1
+  _allPowerUps:
+  - PowerCard: {fileID: 11400000, guid: 12a0428c9a9db7a49b27f1aab2e5eb59, type: 2}
+    PowerUp: {fileID: 6456912530480718859, guid: 7ac82b09854908e44afa6699afa54673, type: 3}
+  _activeOffense: {fileID: 0}
+  _passiveOffenseList: []
+  _activeDefense: {fileID: 0}
+  _passiveDefenseList: []
 --- !u!114 &4489395352407692777
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -190,6 +218,42 @@ MonoBehaviour:
         m_CallState: 2
     m_ActionId: 726b855e-e696-4c9a-b22e-54d3b37cea2f
     m_ActionName: Player/Move[/Keyboard/w,/Keyboard/s,/Keyboard/i,/Keyboard/k]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: fc21832c-1850-4844-9963-6bc126e14221
+    m_ActionName: Player/Special[/Keyboard/l]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: c9082a47-9565-4093-a742-37a3565ae25f
+    m_ActionName: Player/Skill2[/Keyboard/k]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 8fa41d1e-add9-4e22-b217-0586bda1a699
+    m_ActionName: Player/Skill1[/Keyboard/i]
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 971094957438282718}
+        m_TargetAssemblyTypeName: PlayerPowerHandler, Assembly-CSharp
+        m_MethodName: Skill1
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: 37aecd0b-f221-4d73-b3ef-aa197041dc11
+    m_ActionName: Player/Cancel[/Keyboard/escape]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 02782059-90f9-4e94-9f2d-9b6bd5f26069
+    m_ActionName: Player/Submit[/Keyboard/i]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 8e95ae9f-cdf7-49ea-8855-f3c2149f1f8d
+    m_ActionName: Player/Navigate[/Keyboard/u,/Keyboard/upArrow,/Keyboard/j,/Keyboard/downArrow,/Keyboard/leftArrow,/Keyboard/rightArrow]
   m_NeverAutoSwitchControlSchemes: 1
   m_DefaultControlScheme: 
   m_DefaultActionMap: Player
