@@ -11,15 +11,19 @@ public class Bootstraper : MonoBehaviour
     static void Init()
     {
         var currentlyLoadedEditorScene = SceneManager.GetActiveScene();
-        Debug.Log(currentlyLoadedEditorScene.name);
+        
         if(currentlyLoadedEditorScene.name == "BootstrapScene")
         {
-            Debug.Log("Bruh");
             return;
         }
+
+        if (!currentlyLoadedEditorScene.name.Contains("LevelScene"))
+        {
+            return;
+        }
+        
         if (SceneManager.GetSceneByName("LevelTestBootstrapScene").isLoaded != true)
         {
-            Debug.Log("WHY");
             SceneManager.LoadScene("LevelTestBootstrapScene");
         }
 
