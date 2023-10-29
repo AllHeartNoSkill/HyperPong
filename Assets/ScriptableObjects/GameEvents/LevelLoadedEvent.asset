@@ -9,6 +9,6 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c765051a9b5161449922839cc257aa6e, type: 3}
-  m_Name: PlayerScoreAGoalEvent
+  m_Script: {fileID: 11500000, guid: de35d88c404bce2418c2aab3c366ee93, type: 3}
+  m_Name: LevelLoadedEvent
   m_EditorClassIdentifier: 

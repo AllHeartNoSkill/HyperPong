@@ -7,7 +7,14 @@ using UnityEngine.Serialization;
 
 public class PlayerMovement : MonoBehaviour
 {
-    [Header("Player Data")]
+    [Header("Datas")]
+    [SerializeField] private LevelLoadedData _levelLoadedData;
+    
+    [Header("Game Events")]
+    [SerializeField] private GameEvent _levelLoadedEvent;
+    
+    [Header("Player Datas")] 
+    [SerializeField] private PlayerType _playerType;
     [SerializeField] private float _speed = 5;
     [SerializeField] private bool _invertMove = false;
     [SerializeField] private float _ballAimReduction = 5f;
@@ -20,8 +27,23 @@ public class PlayerMovement : MonoBehaviour
     private float _maxDistance;
     private float _currentDistance;
 
-    private void Start()
+    public PlayerType PlayerType1 => _playerType;
+
+    private void Update()
     {
+        if (_moveAxis != 0)
+        {
+            SetDistance();
+            TraversePath();
+        }
+    }
+
+    private void OnLevelLoaded()
+    {
+        _pathCreator = _playerType == PlayerType.PlayerOne
+            ? _levelLoadedData.PlayerOnePath
+            : _levelLoadedData.PlayerTwoPath;
+        
         if (_pathCreator != null)
         {
             // Subscribed to the pathUpdated event so that we're notified if the path changes during the game
@@ -29,15 +51,6 @@ public class PlayerMovement : MonoBehaviour
             _maxDistance = _pathCreator.path.length;
             _currentDistance = _maxDistance / 2;
             
-            TraversePath();
-        }
-    }
-
-    private void Update()
-    {
-        if (_moveAxis != 0)
-        {
-            SetDistance();
             TraversePath();
         }
     }
@@ -55,8 +68,11 @@ public class PlayerMovement : MonoBehaviour
 
     private void TraversePath()
     {
-        transform.position = _pathCreator.path.GetPointAtDistance(_currentDistance, _endOfPathInstruction);
-        transform.rotation = _pathCreator.path.GetRotationAtDistance(_currentDistance, _endOfPathInstruction);
+        if (_pathCreator != null)
+        {
+            transform.position = _pathCreator.path.GetPointAtDistance(_currentDistance, _endOfPathInstruction);
+            transform.rotation = _pathCreator.path.GetRotationAtDistance(_currentDistance, _endOfPathInstruction);
+        }
     }
 
     private void SetDistance()
@@ -69,5 +85,19 @@ public class PlayerMovement : MonoBehaviour
     {
         _currentDistance = _pathCreator.path.GetClosestDistanceAlongPath(transform.position);
         _maxDistance = _pathCreator.path.length;
+    }
+
+    private void OnEnable()
+    {
+        _levelLoadedEvent.AddListener(OnLevelLoaded);
+    }
+
+    private void OnDisable()
+    {
+        if (_pathCreator != null)
+        {
+            _pathCreator.pathUpdated -= OnPathChanged;
+        }
+        _levelLoadedEvent.RemoveListener(OnLevelLoaded);
     }
 }

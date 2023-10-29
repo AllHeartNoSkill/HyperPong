@@ -97,6 +97,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6da8db09882b2a44c988de85b62f0d56, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  baseSpeed: 10
+  baseSpeed: 20
   ballDirection: {x: 1, y: 0, z: 0}
   castRadius: 0.26
