@@ -1,0 +1,58 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &551004710656582980
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 5748566624335666639}
+  - component: {fileID: 1171259244987472858}
+  m_Layer: 0
+  m_Name: Match System
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &5748566624335666639
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 551004710656582980}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -0.106847584, y: 0.53649116, z: 0.004709244}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1171259244987472858
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 551004710656582980}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c5dbf556b1c4ca744972c6ed7472a0c5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _roundWinCount: 3
+  _matchWinCount: 2
+  _playOnAwake: 1
+  _testLevel: 1
+  _levelTest: 0
+  _playerLoadedEvent: {fileID: 11400000, guid: 37caaf4f14b00ec4a9f4d7d0eb7694fe, type: 2}
+  _matchReadyEvent: {fileID: 11400000, guid: e285f3f3496b91443affae9599adbebe, type: 2}
+  _matchBeginEvent: {fileID: 11400000, guid: e369a5de1a2fca44db67ceb7054498ce, type: 2}
+  _matchEndEvent: {fileID: 11400000, guid: 16ad26e5924bd474fb60b3ca65a6cc5b, type: 2}
+  _startRoundEvent: {fileID: 11400000, guid: 24c55440966617d4789279d81cd3abe7, type: 2}
+  _roundEndEvent: {fileID: 11400000, guid: 72437380621afb04b8f8ae52b046f63d, type: 2}
+  _levelUnloadedEvent: {fileID: 11400000, guid: 7f917df2037902b4a98736d8763ff09e, type: 2}

@@ -984,6 +984,8 @@ MonoBehaviour:
   _levelLoadedData: {fileID: 11400000, guid: 596daf05ff804224da414611aaedcdbf, type: 2}
   _playerOnePath: {fileID: 169626076}
   _playerTwoPath: {fileID: 2100788581}
+  _playerMoveSpeed: 5
+  _playerLength: 0.6
 --- !u!4 &1394524652
 Transform:
   m_ObjectHideFlags: 0

@@ -59,6 +59,10 @@ public class PowerUpClass : MonoBehaviour
         IsEffectActive = false;
     }
 
+    public virtual void SetPassive(PlayerType player, PlayerPowerHandler playerPowerHandler)
+    {
+    }
+
     public virtual void Passive(PlayerType player) { }
     
     protected bool InAreaRequirement(PlayerType player)

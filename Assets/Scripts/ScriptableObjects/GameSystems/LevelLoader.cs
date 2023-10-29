@@ -16,14 +16,12 @@ public class LevelLoader : Singleton<LevelLoader>
 
     public void LoadLevel(int level, bool loadPlayer = true)
     {
-        if (loadPlayer)
-        {
-            StartCoroutine(LoadPlayerScene(level));
-        }
-        else
-        {
-            StartCoroutine(LoadLevelScene(level));
-        }
+        StartCoroutine(LoadLevelScene(level));
+    }
+
+    public void LoadPlayer()
+    {
+        StartCoroutine(LoadPlayerScene());
     }
 
     public void UnloadLevel(int level)
@@ -38,7 +36,7 @@ public class LevelLoader : Singleton<LevelLoader>
 
     public void LoadMenu()
     {
-        StartCoroutine(LoadSceneAsync(2, LoadSceneMode.Single));
+        StartCoroutine(LoadSceneAsync(3, LoadSceneMode.Additive));
     }
 
     public void OnlyLoadPlayer()
@@ -92,7 +90,7 @@ public class LevelLoader : Singleton<LevelLoader>
         _matchReadyEvent.TriggerEvent();
     }
 
-    private IEnumerator LoadPlayerScene(int level)
+    private IEnumerator LoadPlayerScene()
     {
         AsyncOperation loadScene = SceneManager.LoadSceneAsync(PlayerSceneIndex, mode: LoadSceneMode.Additive);
         while (!loadScene.isDone)
@@ -101,7 +99,6 @@ public class LevelLoader : Singleton<LevelLoader>
         }
         
         _playerLoadedEvent.TriggerEvent();
-        StartCoroutine(LoadLevelScene(level));
     }
 
     private IEnumerator LoadSceneAsync(int sceneIndex, LoadSceneMode mode)

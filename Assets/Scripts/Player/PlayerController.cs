@@ -12,10 +12,12 @@ public class PlayerController : MonoBehaviour
 
     private bool _canMove = false;
     private PlayerMovement _playerMovement;
+    private GameObject _sprite;
 
     private void Awake()
     {
         _playerMovement = GetComponent<PlayerMovement>();
+        _sprite = transform.GetChild(0).gameObject;
     }
 
     public void Move(InputAction.CallbackContext context)
@@ -28,11 +30,13 @@ public class PlayerController : MonoBehaviour
     private void OnMatchStart()
     {
         _canMove = true;
+        _sprite.SetActive(true);
     }
 
     private void OnMatchEnd(PlayerType winner)
     {
         _canMove = false;
+        _sprite.SetActive(false);
     }
 
     private void OnEnable()
