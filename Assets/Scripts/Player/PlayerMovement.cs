@@ -26,6 +26,7 @@ public class PlayerMovement : MonoBehaviour
     private float _moveAxis;
     private float _maxDistance;
     private float _currentDistance;
+    private Vector3 _scaleVector = new Vector3(1f, 0.2f, 1f);
 
     public PlayerType PlayerType1 => _playerType;
 
@@ -45,6 +46,9 @@ public class PlayerMovement : MonoBehaviour
             : _levelLoadedData.PlayerTwoPath;
 
         _speed = _levelLoadedData.PlayerMoveSpeed;
+
+        _scaleVector.z = _levelLoadedData.PlayerLength;
+        transform.localScale = _scaleVector;
         
         if (_pathCreator != null)
         {
