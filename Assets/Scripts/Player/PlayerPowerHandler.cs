@@ -60,6 +60,11 @@ public class PlayerPowerHandler : MonoBehaviour
         _ballPassMiddle.RemoveListener(OnBallPassMiddleFunc);
     }
 
+    public void AddActivePowerUp(PowerCard powerCard)
+    {
+        
+    }
+
     private void OnBallBounce(PlayerType bounceFrom)
     {
         if (bounceFrom == _player.PlayerType1)
