@@ -8,6 +8,7 @@ public class LevelLoadedData : ScriptableObject
 {
     public PathCreator PlayerOnePath;
     public PathCreator PlayerTwoPath;
+    public BallSpawner BallSpawner;
     public BallMovement SpawnedBall;
     public float PlayerMoveSpeed;
     public float PlayerLength;

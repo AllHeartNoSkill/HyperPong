@@ -24,8 +24,12 @@ public class BallMovement : MonoBehaviour
     private GameObject _lastCollidedObject;
     private PlayerType _owner;
     private PlayerType _inWhatArea;
+    
+    public bool DestroyOnMiddle { get; set; }
 
     public PlayerType InWhatArea => _inWhatArea;
+
+    public float BaseSpeed => baseSpeed;
 
     private void Awake()
     {
@@ -139,6 +143,10 @@ public class BallMovement : MonoBehaviour
         if(_middleHitRequest) return;
         _middleHitRequest = true;
         _inWhatArea = SwitchAreaFrom(_inWhatArea);
+        if (DestroyOnMiddle)
+        {
+            Destroy(gameObject);
+        }
         _ballPassMiddle.TriggerEvent();
     }
 

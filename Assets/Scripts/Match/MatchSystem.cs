@@ -4,12 +4,14 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.Serialization;
+using Random = UnityEngine.Random;
 
 public class MatchSystem : Singleton<MatchSystem>
 {
     [Header("Match Data")]
     [SerializeField] private int _roundWinCount = 3;
     [SerializeField] private int _matchWinCount = 6;
+    [SerializeField] private int _levelCount = 11;
     
     [Header("Test Param")]
     [SerializeField] private bool _playOnAwake = true;
@@ -39,6 +41,11 @@ public class MatchSystem : Singleton<MatchSystem>
     private int _currentLevel;
 
     private void Start()
+    {
+        StartSystem();
+    }
+
+    private void StartSystem()
     {
         if (_levelTest) _roundWinCount = 999999;
         _playerLoadedEvent.AddListener(OnPlayerLoaded);
@@ -73,7 +80,19 @@ public class MatchSystem : Singleton<MatchSystem>
 
     private int GetLevel()
     {
-        return _currentLevel + 1;
+        int nextLevel = Random.Range(2, _levelCount + 1);
+        if (nextLevel == _currentLevel)
+        {
+            if(nextLevel != _levelCount)
+            {
+                nextLevel += 1;
+            }
+            else
+            {
+                nextLevel -= 1;
+            }
+        }
+        return nextLevel;
     }
 
     public void StartGame(int startingLevel)
@@ -88,7 +107,9 @@ public class MatchSystem : Singleton<MatchSystem>
     public void EndGame(PlayerType winner)
     {
         _isGameOnGoing = false;
-        LevelLoader.instance.LoadMenu();
+        // LevelLoader.instance.LoadMenu();
+        SceneManager.LoadScene(0);
+        StartSystem();
     }
 
     private void PrepareMatch(int level)

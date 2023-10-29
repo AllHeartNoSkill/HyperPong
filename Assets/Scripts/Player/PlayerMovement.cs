@@ -12,6 +12,9 @@ public class PlayerMovement : MonoBehaviour
     
     [Header("Game Events")]
     [SerializeField] private GameEvent _levelLoadedEvent;
+    [SerializeField] private GameEvent_PlayerType _mudPitStartEvent;
+    [SerializeField] private GameEvent_PlayerType _mudPitDoneEvent;
+    [SerializeField] private GameEvent_PlayerType _mudPitPassiveEvent;
     
     [Header("Player Datas")] 
     [SerializeField] private PlayerType _playerType;
@@ -27,6 +30,7 @@ public class PlayerMovement : MonoBehaviour
     private float _maxDistance;
     private float _currentDistance;
     private Vector3 _scaleVector = new Vector3(1f, 0.2f, 1f);
+    private float _speedModifier = 1;
 
     public PlayerType PlayerType1 => _playerType;
 
@@ -83,7 +87,7 @@ public class PlayerMovement : MonoBehaviour
 
     private void SetDistance()
     {
-        _currentDistance += _speed * _moveAxis * Time.deltaTime;
+        _currentDistance += _speed * _speedModifier * _moveAxis * Time.deltaTime;
         _currentDistance = Mathf.Clamp(_currentDistance, 0f, _maxDistance);
     }
     
@@ -96,6 +100,9 @@ public class PlayerMovement : MonoBehaviour
     private void OnEnable()
     {
         _levelLoadedEvent.AddListener(OnLevelLoaded);
+        _mudPitStartEvent.AddListener(OnMudPitStart);
+        _mudPitDoneEvent.AddListener(OnMudPitDone);
+        _mudPitPassiveEvent.AddListener(OnMudPitPassive);
     }
 
     private void OnDisable()
@@ -105,5 +112,27 @@ public class PlayerMovement : MonoBehaviour
             _pathCreator.pathUpdated -= OnPathChanged;
         }
         _levelLoadedEvent.RemoveListener(OnLevelLoaded);
+        _mudPitStartEvent.RemoveListener(OnMudPitStart);
+        _mudPitDoneEvent.RemoveListener(OnMudPitDone);
+        _mudPitPassiveEvent.RemoveListener(OnMudPitPassive);
+    }
+
+    private void OnMudPitPassive(PlayerType obj)
+    {
+        print("yeah");
+        if(obj == _playerType) return;
+        _speedModifier -= 0.1f;
+    }
+
+    private void OnMudPitStart(PlayerType obj)
+    {
+        if(obj == _playerType) return;
+        _speedModifier -= 0.5f;
+    }
+
+    private void OnMudPitDone(PlayerType obj)
+    {
+        if(obj == _playerType) return;
+        _speedModifier += 0.5f;
     }
 }

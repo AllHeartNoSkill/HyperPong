@@ -20,3 +20,4 @@ MonoBehaviour:
   chargeTime: 15
   passiveDescription: on bounce splits the ball into 2, 1 will disappear after 0.2s
   type: 0
+  PowerUpPrefab: {fileID: 1396807833334923354, guid: d37608b9a9736fa418cb772237a899c0, type: 3}

@@ -250,6 +250,10 @@ PrefabInstance:
       value: Match System
       objectReference: {fileID: 0}
     - target: {fileID: 1171259244987472858, guid: 25cda5a44e9566f44a0eceeef24ba523, type: 3}
+      propertyPath: _loadMenu
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1171259244987472858, guid: 25cda5a44e9566f44a0eceeef24ba523, type: 3}
       propertyPath: _levelTest
       value: 1
       objectReference: {fileID: 0}

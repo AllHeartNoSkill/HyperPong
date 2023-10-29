@@ -2,11 +2,12 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class InvisibleBallPowerUp : PowerUpClass
+public class SplitBallPowerUp : PowerUpClass
 {
     private bool _isPassiveOnGoing = false;
     private float _passiveDuration = 0.3f;
     private float _passiveCountdown;
+    private PlayerType _playerType;
     
     public override void OnUpdate(float deltaTime)
     {
@@ -23,14 +24,15 @@ public class InvisibleBallPowerUp : PowerUpClass
 
     public override bool TryToActivate(PlayerType player, PlayerPowerHandler playerPowerHandler)
     {
-        Debug.Log("Try To Activate Invisible PU");
+        Debug.Log("Try To Activate Split PU");
         if (!base.TryToActivate(player, playerPowerHandler)) return false;
         return true;
     }
 
     public override void Activate(PlayerType player)
     {
-        Debug.Log("Done Queueing Invisible PU");
+        Debug.Log("Done Queueing Split PU");
+        _playerType = player;
         _playerPowerHandler.OnBallBounceFromPlayer += EffectActivated;
     }
 
@@ -39,24 +41,20 @@ public class InvisibleBallPowerUp : PowerUpClass
         base.EffectActivated();
         
         _playerPowerHandler.OnBallBounceFromPlayer -= EffectActivated;
-        _playerPowerHandler.OnBallPassMiddle += EffectDone;
 
-        LevelLoadedData.SpawnedBall.GetComponent<SpriteRenderer>().enabled = false;
-        Debug.Log("ACTIVATE BALL INVISIBLE");
+        LevelLoadedData.BallSpawner.SpawnDecoyBall(2, _playerType);
+        Debug.Log("ACTIVATE BALL SPLIT");
     }
 
     protected override void EffectDone()
     {
         base.EffectDone();
-        
-        LevelLoadedData.SpawnedBall.GetComponent<SpriteRenderer>().enabled = true;
-        _playerPowerHandler.OnBallPassMiddle -= EffectDone;
     }
 
     public override void PassiveOnBounceFromPlayer()
     {
         if(_isPassiveOnGoing) return;
-        LevelLoadedData.SpawnedBall.GetComponent<SpriteRenderer>().enabled = false;
+        LevelLoadedData.BallSpawner.SpawnDecoyBall(1, _playerType, false);
         _passiveCountdown = 0;
         _isPassiveOnGoing = true;
     }
@@ -64,6 +62,6 @@ public class InvisibleBallPowerUp : PowerUpClass
     private void PassiveDone()
     {
         _isPassiveOnGoing = false;
-        LevelLoadedData.SpawnedBall.GetComponent<SpriteRenderer>().enabled = true;
+        LevelLoadedData.BallSpawner.DestroyDecoyBalls();
     }
 }
