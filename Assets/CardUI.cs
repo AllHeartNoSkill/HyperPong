@@ -13,13 +13,11 @@ public class CardUI : MonoBehaviour, ISelectHandler, IDeselectHandler, ISubmitHa
     public void OnSelect(BaseEventData eventData)
     {
         description.SetActive(true);
-        
     }
 
     public void OnDeselect(BaseEventData eventData)
     {
         description.SetActive(false);
-        print("deselected" + gameObject.name);
     }
 
     public void OnSubmit(BaseEventData eventData)
