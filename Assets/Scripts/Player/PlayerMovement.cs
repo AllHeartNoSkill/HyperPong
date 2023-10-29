@@ -43,6 +43,8 @@ public class PlayerMovement : MonoBehaviour
         _pathCreator = _playerType == PlayerType.PlayerOne
             ? _levelLoadedData.PlayerOnePath
             : _levelLoadedData.PlayerTwoPath;
+
+        _speed = _levelLoadedData.PlayerMoveSpeed;
         
         if (_pathCreator != null)
         {

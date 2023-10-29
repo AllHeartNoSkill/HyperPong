@@ -6,10 +6,19 @@ using Random = UnityEngine.Random;
 
 public class BallSpawner : MonoBehaviour
 {
+    [SerializeField] private LevelLoadedData _levelLoadedData;
+    
     [SerializeField] private float _randomAngle = 60f;
     [SerializeField] private GameObject _ballPrefab;
     [SerializeField] private Transform _ballSpawnPoint;
 
+    [Header("Ball Data")]
+    [SerializeField] private float _minBallSpeed = 10;
+    [SerializeField] private float _maxBallSpeed = 25;
+    [SerializeField] private float _speedIncrement = 0.2f;
+    [SerializeField] private float _roundRestartIncrementMul = 3f;
+    
+    [Header("Game Events")]
     [SerializeField] private GameEvent_Int _roundStartEvent;
     [SerializeField] private GameEvent_PlayerType _roundEndEvent;
 
@@ -46,7 +55,10 @@ public class BallSpawner : MonoBehaviour
         {
             _ballXDir = Random.Range(0, 2) == 0 ? 1f : -1f;
             _spawnedBall = Instantiate(_ballPrefab, _ballSpawnPoint.position, Quaternion.identity).GetComponent<BallMovement>();
+            _spawnedBall.SetData(_minBallSpeed, _maxBallSpeed, _speedIncrement, _roundRestartIncrementMul);
+            
             _isFirstRound = false;
+            _levelLoadedData.SpawnedBall = _spawnedBall;
         }
         else
         {
@@ -57,7 +69,7 @@ public class BallSpawner : MonoBehaviour
 
         float choosenAngle = Random.Range(90 - (_randomAngle / 2), 90 + (_randomAngle / 2)) * _ballXDir;
         Vector3 ballDirection = Quaternion.AngleAxis(choosenAngle, Vector3.forward) * Vector3.up;
-        Debug.Log($"angle: {choosenAngle} == ball direction: {ballDirection}");
-        _spawnedBall.Init(ballDirection);
+        // Debug.Log($"angle: {choosenAngle} == ball direction: {ballDirection}");
+        _spawnedBall.Init(ballDirection, _lastRoundWinner);
     }
 }

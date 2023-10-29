@@ -97,6 +97,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6da8db09882b2a44c988de85b62f0d56, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _ballBounceEvent: {fileID: 11400000, guid: 1cb0d29cc82c01c45bd67725e9d97b85, type: 2}
+  _ballPassMiddle: {fileID: 11400000, guid: 541fb3c97f2612b489f2ee2cef135bdd, type: 2}
   baseSpeed: 20
   ballDirection: {x: 1, y: 0, z: 0}
   castRadius: 0.26
