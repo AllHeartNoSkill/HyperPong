@@ -20,3 +20,4 @@ MonoBehaviour:
   chargeTime: 20
   passiveDescription: on bounce back, ball will be invisible for 0.3s
   type: 0
+  PowerUpPrefab: {fileID: 6456912530480718859, guid: 7ac82b09854908e44afa6699afa54673, type: 3}

@@ -19,3 +19,4 @@ MonoBehaviour:
   chargeTime: 20
   passiveDescription: slows down enemy 10%
   type: 0
+  PowerUpPrefab: {fileID: 31749278835100786, guid: 587582baf4d80734ca15b8cf19816a4b, type: 3}

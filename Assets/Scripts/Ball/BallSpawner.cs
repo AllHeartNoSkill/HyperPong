@@ -8,7 +8,7 @@ public class BallSpawner : MonoBehaviour
 {
     [SerializeField] private LevelLoadedData _levelLoadedData;
     
-    [SerializeField] private float _randomAngle = 60f;
+    [SerializeField] private float _randomAngle = 120f;
     [SerializeField] private GameObject _ballPrefab;
     [SerializeField] private Transform _ballSpawnPoint;
 
@@ -26,6 +26,12 @@ public class BallSpawner : MonoBehaviour
     private float _ballXDir;
     private BallMovement _spawnedBall;
     private PlayerType _lastRoundWinner;
+    private List<GameObject> decoyBalls = new List<GameObject>();
+
+    private void Start()
+    {
+        _levelLoadedData.BallSpawner = this;
+    }
 
     private void OnEnable()
     {
@@ -67,9 +73,42 @@ public class BallSpawner : MonoBehaviour
             _spawnedBall.gameObject.SetActive(true);
         }
 
-        float choosenAngle = Random.Range(90 - (_randomAngle / 2), 90 + (_randomAngle / 2)) * _ballXDir;
+        float choosenAngle = 90f * _ballXDir;
         Vector3 ballDirection = Quaternion.AngleAxis(choosenAngle, Vector3.forward) * Vector3.up;
         // Debug.Log($"angle: {choosenAngle} == ball direction: {ballDirection}");
         _spawnedBall.Init(ballDirection, _lastRoundWinner);
+    }
+
+    public void SpawnDecoyBall(int count, PlayerType playerWhoTrigger, bool untilMiddle = true)
+    {
+        float ballDir = playerWhoTrigger == PlayerType.PlayerOne ? -1f : 1f;
+        float choosenAngle;
+        Vector3 ballDirection;
+        
+        for (int i = 0; i < count; i++)
+        {
+            BallMovement spwanedBall = Instantiate(_ballPrefab, _spawnedBall.transform.position, Quaternion.identity).GetComponent<BallMovement>();
+            spwanedBall.SetData(_spawnedBall.BaseSpeed, _spawnedBall.BaseSpeed, _speedIncrement, _roundRestartIncrementMul);
+            spwanedBall.DestroyOnMiddle = untilMiddle;
+            
+            choosenAngle = Random.Range(90 - (_randomAngle / 2), 90 + (_randomAngle / 2)) * ballDir;
+            ballDirection = Quaternion.AngleAxis(choosenAngle, Vector3.forward) * Vector3.up;
+            spwanedBall.Init(ballDirection, playerWhoTrigger);
+            
+            if(!untilMiddle) decoyBalls.Add(spwanedBall.gameObject);
+        }
+        
+        choosenAngle = Random.Range(90 - (_randomAngle / 2), 90 + (_randomAngle / 2)) * _ballXDir;
+        ballDirection = Quaternion.AngleAxis(choosenAngle, Vector3.forward) * Vector3.up;
+        _spawnedBall.Init(ballDirection, _lastRoundWinner);
+    }
+
+    public void DestroyDecoyBalls()
+    {
+        for (int i = decoyBalls.Count - 1; i >= 0; i--)
+        {
+            Destroy(decoyBalls[i]);
+        }
+        decoyBalls.Clear();
     }
 }

@@ -388,13 +388,13 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 971094957438282718, guid: 00ad88d70eaef6d439490d624e43ef2f, type: 3}
+      propertyPath: _testPassivePowers.Array.size
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 2608965249746299201, guid: 00ad88d70eaef6d439490d624e43ef2f, type: 3}
       propertyPath: _invertMove
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2608965249746299201, guid: 00ad88d70eaef6d439490d624e43ef2f, type: 3}
-      propertyPath: _pathCreator
-      value: 
       objectReference: {fileID: 0}
     - target: {fileID: 4489395352407692777, guid: 00ad88d70eaef6d439490d624e43ef2f, type: 3}
       propertyPath: m_Actions
@@ -525,13 +525,13 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 971094957438282718, guid: 00ad88d70eaef6d439490d624e43ef2f, type: 3}
+      propertyPath: _testPassivePowers.Array.size
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 2608965249746299201, guid: 00ad88d70eaef6d439490d624e43ef2f, type: 3}
       propertyPath: _playerType
       value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 2608965249746299201, guid: 00ad88d70eaef6d439490d624e43ef2f, type: 3}
-      propertyPath: _pathCreator
-      value: 
       objectReference: {fileID: 0}
     - target: {fileID: 4489395352407692777, guid: 00ad88d70eaef6d439490d624e43ef2f, type: 3}
       propertyPath: m_ActionEvents.Array.data[3].m_PersistentCalls.m_Calls.Array.size

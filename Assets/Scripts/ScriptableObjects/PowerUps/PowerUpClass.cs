@@ -58,17 +58,31 @@ public class PowerUpClass : MonoBehaviour
     {
         IsEffectActive = false;
     }
-
-    public virtual void SetPassive(PlayerType player, PlayerPowerHandler playerPowerHandler)
-    {
-    }
-
-    public virtual void Passive(PlayerType player) { }
     
     protected bool InAreaRequirement(PlayerType player)
     {
         if (!RequireOnOwnArea) return true;
         if (LevelLoadedData.SpawnedBall.InWhatArea == player) return true;
         return false;
+    }
+
+    public virtual void PassiveOnBounceFromPlayer()
+    {
+        
+    }
+
+    public virtual void PassiveOnBounceFromEnemy()
+    {
+        
+    }
+
+    public virtual void PassiveOnPassMiddle()
+    {
+        
+    }
+
+    public virtual void PassiveModifier(PlayerPowerHandler playerPowerHandler, PlayerType playerType)
+    {
+        
     }
 }

@@ -149,6 +149,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _levelLoadedData: {fileID: 11400000, guid: 596daf05ff804224da414611aaedcdbf, type: 2}
   _levelLoadedEvent: {fileID: 11400000, guid: 3096b7e8879b4a3479543d226adc6f0b, type: 2}
+  _mudPitStartEvent: {fileID: 11400000, guid: 4c03cb1f3b965e34eaf3c47237a05617, type: 2}
+  _mudPitDoneEvent: {fileID: 11400000, guid: 33271dc3401fa084090d19b3eca6f234, type: 2}
+  _mudPitPassiveEvent: {fileID: 11400000, guid: 4fbc60686b90a5249a4333f438dca1c4, type: 2}
   _playerType: 0
   _speed: 5
   _invertMove: 1
@@ -167,12 +170,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fe3f3a235e166164ea578b734fd22145, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _skillActiveSelectedEvent: {fileID: 11400000, guid: 0aed440e143040744bc6695ab5e70633, type: 2}
+  _skillPassiveSelectedEvent: {fileID: 11400000, guid: 053b1669b8bd1af49a6479342bd50a01, type: 2}
   _ballBounceEvent: {fileID: 11400000, guid: 1cb0d29cc82c01c45bd67725e9d97b85, type: 2}
   _ballPassMiddle: {fileID: 11400000, guid: 541fb3c97f2612b489f2ee2cef135bdd, type: 2}
   _testPowerUp: 1
-  _allPowerUps:
-  - PowerCard: {fileID: 11400000, guid: 12a0428c9a9db7a49b27f1aab2e5eb59, type: 2}
-    PowerUp: {fileID: 6456912530480718859, guid: 7ac82b09854908e44afa6699afa54673, type: 3}
+  _testActivePower: {fileID: 11400000, guid: 8595b5b4e9d235a49a7f32f0c78c51a6, type: 2}
+  _testPassivePowers:
+  - {fileID: 11400000, guid: 12a0428c9a9db7a49b27f1aab2e5eb59, type: 2}
+  - {fileID: 11400000, guid: 01876e326e0ee8c42810bac0f87edc71, type: 2}
+  - {fileID: 11400000, guid: 8595b5b4e9d235a49a7f32f0c78c51a6, type: 2}
   _activeOffense: {fileID: 0}
   _passiveOffenseList: []
   _activeDefense: {fileID: 0}

@@ -1,0 +1,52 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &2708177949195079175
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 4697566614917275127}
+  - component: {fileID: 31749278835100786}
+  m_Layer: 0
+  m_Name: MudPitPowerUp
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &4697566614917275127
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2708177949195079175}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 7, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &31749278835100786
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2708177949195079175}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 659bf02b3e06ce249a1f052058c5203c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Card: {fileID: 11400000, guid: 8595b5b4e9d235a49a7f32f0c78c51a6, type: 2}
+  RequireOnOwnArea: 0
+  LevelLoadedData: {fileID: 11400000, guid: 596daf05ff804224da414611aaedcdbf, type: 2}
+  _mudPitStartEvent: {fileID: 11400000, guid: 4c03cb1f3b965e34eaf3c47237a05617, type: 2}
+  _mudPitDoneEvent: {fileID: 11400000, guid: 33271dc3401fa084090d19b3eca6f234, type: 2}
+  _mudPitPassiveEvent: {fileID: 11400000, guid: 4fbc60686b90a5249a4333f438dca1c4, type: 2}
