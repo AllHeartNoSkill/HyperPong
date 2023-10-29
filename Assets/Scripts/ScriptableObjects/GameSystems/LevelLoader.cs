@@ -53,7 +53,7 @@ public class LevelLoader : Singleton<LevelLoader>
         
             _levelLoadedEvent.TriggerEvent();
             _playerLoadedEvent.TriggerEvent();
-            _matchReadyEvent.TriggerEvent();
+            // _matchReadyEvent.TriggerEvent();
         }
     }
 
@@ -87,7 +87,7 @@ public class LevelLoader : Singleton<LevelLoader>
         }
         
         _levelLoadedEvent.TriggerEvent();
-        _matchReadyEvent.TriggerEvent();
+        // _matchReadyEvent.TriggerEvent();
     }
 
     private IEnumerator LoadPlayerScene()
