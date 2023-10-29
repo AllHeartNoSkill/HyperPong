@@ -28,11 +28,6 @@ public class UIInputManager : MonoBehaviour
 
     void Start()
     {
-        StartCoroutine(waitForScenes());
-    }
-
-    IEnumerator waitForScenes(){
-        yield return new WaitForSeconds(2);
         AssignPlayerInputs();
         SetMainMenuInputs();
     }

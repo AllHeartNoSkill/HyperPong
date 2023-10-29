@@ -15,8 +15,10 @@ public class MatchSystem : Singleton<MatchSystem>
     [SerializeField] private bool _playOnAwake = true;
     [SerializeField] private int _testLevel = 1;
     [SerializeField] private bool _levelTest = false;
+    [SerializeField] private bool _loadMenu = true;
 
     [Header("Game Events")] 
+    [SerializeField] private GameEvent _playerLoadedEvent;
     [SerializeField] private GameEvent _matchReadyEvent;
     [SerializeField] private GameEvent _matchBeginEvent;
     [SerializeField] private GameEvent_PlayerType _matchEndEvent;
@@ -39,21 +41,23 @@ public class MatchSystem : Singleton<MatchSystem>
     private void Start()
     {
         if (_levelTest) _roundWinCount = 999999;
+        _playerLoadedEvent.AddListener(OnPlayerLoaded);
+        LevelLoader.instance.LoadPlayer();
+    }
+
+    private void OnPlayerLoaded()
+    {
+        _playerLoadedEvent.RemoveListener(OnPlayerLoaded);
         if (_playOnAwake)
         {
             StartGame(_testLevel);
         }
-        else
+        else if(_loadMenu)
         {
-            LoadMenu();
+            LevelLoader.instance.LoadMenu();
         }
     }
-
-    private void LoadMenu()
-    {
-        SceneManager.LoadScene(2);
-    }
-
+    
     private void ResetGameData()
     {
         _playersMatchScore = new int[2];
@@ -128,6 +132,7 @@ public class MatchSystem : Singleton<MatchSystem>
         if (_playersMatchScore[(int)winner] >= _matchWinCount)
         {
             Debug.Log($"match ended and game too");
+            LevelLoader.instance.UnloadLevel(_currentLevel);
             EndGame(winner);
             return;
         }

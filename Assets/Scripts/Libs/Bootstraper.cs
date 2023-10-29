@@ -17,14 +17,23 @@ public class Bootstraper : MonoBehaviour
             return;
         }
 
-        if (!currentlyLoadedEditorScene.name.Contains("LevelScene"))
+        if (currentlyLoadedEditorScene.name.Contains("LevelScene"))
+        {
+            if (SceneManager.GetSceneByName("LevelTestBootstrapScene").isLoaded != true)
+            {
+                SceneManager.LoadScene("LevelTestBootstrapScene");
+            }
+        }
+        else if (currentlyLoadedEditorScene.name.Contains("Menu"))
+        {
+            if (SceneManager.GetSceneByName("MenuTestBootstrapScene").isLoaded != true)
+            {
+                SceneManager.LoadScene("MenuTestBootstrapScene");
+            }
+        }
+        else
         {
             return;
-        }
-        
-        if (SceneManager.GetSceneByName("LevelTestBootstrapScene").isLoaded != true)
-        {
-            SceneManager.LoadScene("LevelTestBootstrapScene");
         }
 
         if (currentlyLoadedEditorScene.IsValid())
