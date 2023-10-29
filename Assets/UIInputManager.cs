@@ -16,11 +16,11 @@ public class UIInputManager : MonoBehaviour
     [SerializeField] InputSystemUIInputModule  p2InputModule;
     [SerializeField] MultiplayerEventSystem p2EventSystem;
 
-    [SerializeField] GameObject mainMenu;
+    [SerializeField] public GameObject mainMenu;
     [SerializeField] Canvas mainMenuCanvas;
     [SerializeField] Button mainMenuFirstSelected;
 
-    [SerializeField] GameObject betweenRoundsMenu;
+    [SerializeField] public GameObject betweenRoundsMenu;
     [SerializeField] Canvas p1RoundCanvas;
     [SerializeField] Button p1RoundCanvasFirstSelected;
     [SerializeField] Canvas p2RoundCanvas;

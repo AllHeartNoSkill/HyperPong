@@ -122,7 +122,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1230918851930197587}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 6792569848532003894}
+        m_TargetAssemblyTypeName: CardUIParent, Assembly-CSharp
+        m_MethodName: AssignPower
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 1
+        m_CallState: 2
 --- !u!114 &3283418153401720725
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -654,7 +666,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 53626389361209391}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 6792569848532003894}
+        m_TargetAssemblyTypeName: CardUIParent, Assembly-CSharp
+        m_MethodName: AssignPower
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &6623833387921187141
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1374,6 +1398,8 @@ MonoBehaviour:
   confirmationUI: {fileID: 6956081874319397984}
   confirmButton: {fileID: 735490018269685874}
   eventSystem: {fileID: 0}
+  gUI: {fileID: 0}
+  player: 0
   powerCard: {fileID: 0}
 --- !u!1 &6886098181383194519
 GameObject:

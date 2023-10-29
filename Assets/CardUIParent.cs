@@ -11,6 +11,9 @@ public class CardUIParent : MonoBehaviour
     [SerializeField] GameObject confirmationUI;
     [SerializeField] GameObject confirmButton;
     [SerializeField] MultiplayerEventSystem eventSystem;
+    [SerializeField] GameplayUI gUI;
+
+    [SerializeField] PlayerType player;
 
     // [SerializeField] int powerCardId;
     public PowerCard powerCard;
@@ -24,5 +27,9 @@ public class CardUIParent : MonoBehaviour
         confirmationUI.SetActive(true);
         cardUI.gameObject.SetActive(false);
         eventSystem.SetSelectedGameObject(confirmButton);
+    }
+
+    public void AssignPower(bool active){
+        gUI.SelectCard(player, active, powerCard);
     }
 }
