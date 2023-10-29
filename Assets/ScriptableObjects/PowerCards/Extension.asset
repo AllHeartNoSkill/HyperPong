@@ -19,3 +19,4 @@ MonoBehaviour:
   chargeTime: 20
   passiveDescription: player is 10% longer
   type: 1
+  PowerUpPrefab: {fileID: 2923283242330899566, guid: b829a02bc48db584998570691e477e06, type: 3}

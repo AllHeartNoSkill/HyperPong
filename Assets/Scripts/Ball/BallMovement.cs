@@ -154,4 +154,9 @@ public class BallMovement : MonoBehaviour
     {
         Gizmos.DrawSphere(transform.position, castRadius);
     }
+
+    public void ReverseDirection()
+    {
+        ballDirection = ballDirection * -1f;
+    }
 }

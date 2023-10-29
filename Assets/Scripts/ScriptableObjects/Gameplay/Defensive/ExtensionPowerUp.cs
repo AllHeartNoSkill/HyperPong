@@ -1,14 +1,15 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Serialization;
 
-public class MudPitPowerUp : PowerUpClass
+public class ExtensionPowerUp : PowerUpClass
 {
-    [SerializeField] private GameEvent_PlayerType _mudPitStartEvent;
-    [SerializeField] private GameEvent_PlayerType _mudPitDoneEvent;
-    [SerializeField] private GameEvent_PlayerType _mudPitPassiveEvent;
+    [SerializeField] private GameEvent_PlayerType _extensionStartEvent;
+    [SerializeField] private GameEvent_PlayerType _extensionDoneEvent;
+    [SerializeField] private GameEvent_PlayerType _extensionPassiveEvent;
     
-    private float _effectDuration = 5f;
+    private float _effectDuration = 4f;
     private float _effectCountdown;
     private PlayerType _playerType;
     
@@ -27,14 +28,14 @@ public class MudPitPowerUp : PowerUpClass
 
     public override bool TryToActivate(PlayerType player, PlayerPowerHandler playerPowerHandler)
     {
-        Debug.Log("Try To Activate Mud Pit PU");
+        Debug.Log("Try To Activate Extension PU");
         if (!base.TryToActivate(player, playerPowerHandler)) return false;
         return true;
     }
 
     public override void Activate(PlayerType player)
     {
-        Debug.Log("Done Queueing Mud Pit PU");
+        Debug.Log("Done Queueing Extension PU");
         _playerType = player;
         EffectActivated();
     }
@@ -42,20 +43,20 @@ public class MudPitPowerUp : PowerUpClass
     protected override void EffectActivated()
     {
         base.EffectActivated();
-        Debug.Log("ACTIVATE MUD PIT");
-        _mudPitStartEvent.TriggerEvent(_playerType);
+        Debug.Log("ACTIVATE EXTENSION");
+        _extensionStartEvent.TriggerEvent(_playerType);
     }
 
     protected override void EffectDone()
     {
         base.EffectDone();
         _effectCountdown = 0f;
-        _mudPitDoneEvent.TriggerEvent(_playerType);
+        _extensionDoneEvent.TriggerEvent(_playerType);
     }
 
     public override void PassiveModifier(PlayerPowerHandler playerPowerHandler, PlayerType playerType)
     {
-        print("trigger passive");
-        _mudPitPassiveEvent.TriggerEvent(playerType);
+        print("trigger passive extension");
+        _extensionPassiveEvent.TriggerEvent(playerType);
     }
 }

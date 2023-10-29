@@ -19,3 +19,4 @@ MonoBehaviour:
   chargeTime: 15
   passiveDescription: ball towards enemy is 10% faster
   type: 1
+  PowerUpPrefab: {fileID: 5213326600529855895, guid: b2065c0a4dd72974aa33e2c83278f85b, type: 3}

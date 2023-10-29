@@ -152,6 +152,9 @@ MonoBehaviour:
   _mudPitStartEvent: {fileID: 11400000, guid: 4c03cb1f3b965e34eaf3c47237a05617, type: 2}
   _mudPitDoneEvent: {fileID: 11400000, guid: 33271dc3401fa084090d19b3eca6f234, type: 2}
   _mudPitPassiveEvent: {fileID: 11400000, guid: 4fbc60686b90a5249a4333f438dca1c4, type: 2}
+  _extensionStartEvent: {fileID: 11400000, guid: f4fb78bf78de0cb44a62e911ade5a0f1, type: 2}
+  _extensionDoneEvent: {fileID: 11400000, guid: 76db88daef9e41d4c8d98d105cb91bbb, type: 2}
+  _extensionPassiveEvent: {fileID: 11400000, guid: 74f62100a594aa9448c5e3661ddaac8d, type: 2}
   _playerType: 0
   _speed: 5
   _invertMove: 1

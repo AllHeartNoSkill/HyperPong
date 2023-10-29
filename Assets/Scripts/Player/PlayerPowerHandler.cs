@@ -194,6 +194,8 @@ public class PlayerPowerHandler : MonoBehaviour
         if (context.phase != InputActionPhase.Started) return;
         if (_activeDefense == null) return;
         if (!_activeDefense.TryToActivate(_player.PlayerType1, this)) return;
+        
+        _activeDefense.Activate(_player.PlayerType1);
     }
 }
 

@@ -7,6 +7,7 @@ public class PowerUpClass : MonoBehaviour
 {
     public PowerCard Card;
     public bool RequireOnOwnArea;
+    public bool RequireOnEnemyArea;
     public LevelLoadedData LevelLoadedData;
 
     protected bool IsCooldown = false;
@@ -61,8 +62,9 @@ public class PowerUpClass : MonoBehaviour
     
     protected bool InAreaRequirement(PlayerType player)
     {
-        if (!RequireOnOwnArea) return true;
-        if (LevelLoadedData.SpawnedBall.InWhatArea == player) return true;
+        if (!RequireOnOwnArea && !RequireOnEnemyArea) return true;
+        if (RequireOnOwnArea && LevelLoadedData.SpawnedBall.InWhatArea == player) return true;
+        if (RequireOnEnemyArea && LevelLoadedData.SpawnedBall.InWhatArea != player) return true;
         return false;
     }
 

@@ -15,6 +15,9 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private GameEvent_PlayerType _mudPitStartEvent;
     [SerializeField] private GameEvent_PlayerType _mudPitDoneEvent;
     [SerializeField] private GameEvent_PlayerType _mudPitPassiveEvent;
+    [SerializeField] private GameEvent_PlayerType _extensionStartEvent;
+    [SerializeField] private GameEvent_PlayerType _extensionDoneEvent;
+    [SerializeField] private GameEvent_PlayerType _extensionPassiveEvent;
     
     [Header("Player Datas")] 
     [SerializeField] private PlayerType _playerType;
@@ -31,6 +34,7 @@ public class PlayerMovement : MonoBehaviour
     private float _currentDistance;
     private Vector3 _scaleVector = new Vector3(1f, 0.2f, 1f);
     private float _speedModifier = 1;
+    private float _scaleModifier = 1;
 
     public PlayerType PlayerType1 => _playerType;
 
@@ -51,7 +55,7 @@ public class PlayerMovement : MonoBehaviour
 
         _speed = _levelLoadedData.PlayerMoveSpeed;
 
-        _scaleVector.z = _levelLoadedData.PlayerLength;
+        _scaleVector.z = _levelLoadedData.PlayerLength * _scaleModifier;
         transform.localScale = _scaleVector;
         
         if (_pathCreator != null)
@@ -100,9 +104,14 @@ public class PlayerMovement : MonoBehaviour
     private void OnEnable()
     {
         _levelLoadedEvent.AddListener(OnLevelLoaded);
+        
         _mudPitStartEvent.AddListener(OnMudPitStart);
         _mudPitDoneEvent.AddListener(OnMudPitDone);
         _mudPitPassiveEvent.AddListener(OnMudPitPassive);
+        
+        _extensionStartEvent.AddListener(OnExtensionStart);
+        _extensionDoneEvent.AddListener(OnExtensionDone);
+        _extensionPassiveEvent.AddListener(OnExtensionPassive);
     }
 
     private void OnDisable()
@@ -112,14 +121,43 @@ public class PlayerMovement : MonoBehaviour
             _pathCreator.pathUpdated -= OnPathChanged;
         }
         _levelLoadedEvent.RemoveListener(OnLevelLoaded);
+        
         _mudPitStartEvent.RemoveListener(OnMudPitStart);
         _mudPitDoneEvent.RemoveListener(OnMudPitDone);
         _mudPitPassiveEvent.RemoveListener(OnMudPitPassive);
+        
+        _extensionStartEvent.RemoveListener(OnExtensionStart);
+        _extensionDoneEvent.RemoveListener(OnExtensionDone);
+        _extensionPassiveEvent.RemoveListener(OnExtensionPassive);
+    }
+
+    private void OnExtensionStart(PlayerType obj)
+    {
+        if(obj != _playerType) return;
+        _scaleModifier += 1f;
+        Debug.Log($"scale mod: {_scaleModifier}");
+        _scaleVector.z = _levelLoadedData.PlayerLength * _scaleModifier;
+        transform.localScale = _scaleVector;
+    }
+
+    private void OnExtensionDone(PlayerType obj)
+    {
+        if(obj != _playerType) return;
+        _scaleModifier -= 1f;
+        _scaleVector.z = _levelLoadedData.PlayerLength * _scaleModifier;
+        transform.localScale = _scaleVector;
+    }
+
+    private void OnExtensionPassive(PlayerType obj)
+    {
+        if(obj != _playerType) return;
+        _scaleModifier += 0.1f;
+        _scaleVector.z = _levelLoadedData.PlayerLength * _scaleModifier;
+        transform.localScale = _scaleVector;
     }
 
     private void OnMudPitPassive(PlayerType obj)
     {
-        print("yeah");
         if(obj == _playerType) return;
         _speedModifier -= 0.1f;
     }
