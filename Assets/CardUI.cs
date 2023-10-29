@@ -15,13 +15,15 @@ public class CardUI : MonoBehaviour, ISelectHandler, IDeselectHandler, ISubmitHa
 
     public void OnSelect(BaseEventData eventData)
     {
+        sequence.ResetToInitialState();
         sequence.Play();
-        description.SetActive(true);
+        // description.SetActive(true);
     }
 
     public void OnDeselect(BaseEventData eventData)
     {
-        description.SetActive(false);
+        sequence.PlayBackwards();
+        // description.SetActive(false);
     }
 
     public void OnSubmit(BaseEventData eventData)

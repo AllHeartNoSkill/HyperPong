@@ -10,13 +10,12 @@ At the start of the game, each player will pick a power up, from then on, losing
 
 ### Offensive
 
-- Aim
-  - Active
-    Can redirect if the ball is still in player's area
-    duration: once
-    charge: 10s
-  - Passive
-    Aim on bounce back
+~~- Aim - Active
+Can redirect if the ball is still in player's area
+duration: once
+charge: 10s - Passive
+Aim on bounce back
+
 - Invisible
   - Active
     on bounce back, ball will be invisible until it reaches enemy's area
@@ -26,11 +25,11 @@ At the start of the game, each player will pick a power up, from then on, losing
     on bounce back, ball will be invisible for 0.3s
 - Split
   - Active
-    on bounce back, split the ball into 3 random direction, 2 of which will disappear when it reaches enemy's area
+    on bounce splits the ball into 3, 2 will disappear in enemy's area
     duration: instant
     charge: 15s
   - Passive
-    on bounce back, split the ball into 2 random direction, 1 of which will disappear in 0.3s
+    on bounce splits the ball into 2, 1 will disappear after 0.2s
 - Explosive
   - Active
     on bounce back, ball will be 2x faster
@@ -42,7 +41,16 @@ At the start of the game, each player will pick a power up, from then on, losing
   - Active
     if the ball is in Player's area, move the enemy to the edge
     duration: instant
-    charge: 15s
+    charge: 8s
+  - Passive
+    slows down enemy by 10%
+- Mud Pit
+  - Active
+    slows down the enemy 50%
+    duration: 5s
+    charge: 20s
+  - Passive
+    slows down enemy 10%
 
 ### Defensive
 
@@ -84,13 +92,13 @@ At the start of the game, each player will pick a power up, from then on, losing
 
 ### Special
 
-- Move player's area
+- Expand
   Move player's area further to the enemy's
   duration: 15s
 - Confusion
   Reverse enemy's control when the ball is in player's area
   duration: 10s
-- bricks
+- Brick Wall
   give bricks style defensive behind player
   duration: 20s
 - Minify

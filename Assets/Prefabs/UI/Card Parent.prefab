@@ -153,10 +153,10 @@ RectTransform:
   - {fileID: 1399678168298474888}
   m_Father: {fileID: 464058840779982908}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 1, y: 1}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 60, y: 0}
+  m_SizeDelta: {x: 0, y: 200}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &1439438394973154412
 GameObject:
@@ -877,8 +877,9 @@ MonoBehaviour:
   animationSteps:
   - rid: 8084794329897369600
   - rid: 8084794329897369604
-  - rid: 8084794329897369610
-  - rid: 8084794329897369616
+  - rid: 8084794329897369625
+  - rid: 8084794329897369627
+  - rid: 8084794329897369623
   - rid: 8084794329897369606
   - rid: 8084794329897369608
   updateType: 0
@@ -889,7 +890,7 @@ MonoBehaviour:
   playType: 0
   loops: 0
   loopType: 0
-  autoKill: 1
+  autoKill: 0
   onStartEvent:
     m_PersistentCalls:
       m_Calls: []
@@ -1008,19 +1009,84 @@ MonoBehaviour:
         isRelative: 1
         axisConstraint: 0
         position: {x: 5, y: 0}
-    - rid: 8084794329897369610
-      type: {class: SetGameObjectActiveStep, ns: BrunoMikoski.AnimationSequencer, asm: BrunoMikoski.AnimationSequencer}
+    - rid: 8084794329897369623
+      type: {class: DOTweenAnimationStep, ns: BrunoMikoski.AnimationSequencer, asm: BrunoMikoski.AnimationSequencer}
       data:
         delay: 0.1
         flowType: 1
-        targetGameObject: {fileID: 6886098181383194519}
-        active: 1
-    - rid: 8084794329897369616
-      type: {class: PlaySequenceAnimationStep, ns: BrunoMikoski.AnimationSequencer, asm: BrunoMikoski.AnimationSequencer}
+        target: {fileID: 1385270585457792462}
+        duration: 0.4
+        loopCount: 0
+        loopType: 0
+        actions:
+        - rid: 8084794329897369624
+    - rid: 8084794329897369624
+      type: {class: RectTransformSizeDOTweenAction, ns: BrunoMikoski.AnimationSequencer, asm: BrunoMikoski.AnimationSequencer}
+      data:
+        direction: 0
+        ease:
+          ease: 7
+          curve:
+            serializedVersion: 2
+            m_Curve: []
+            m_PreInfinity: 2
+            m_PostInfinity: 2
+            m_RotationOrder: 4
+        isRelative: 0
+        sizeDelta: {x: 560, y: 200}
+        axisConstraint: 0
+    - rid: 8084794329897369625
+      type: {class: DOTweenAnimationStep, ns: BrunoMikoski.AnimationSequencer, asm: BrunoMikoski.AnimationSequencer}
       data:
         delay: 0.1
         flowType: 1
-        sequencer: {fileID: 4906142584077274411}
+        target: {fileID: 6966500354500998626}
+        duration: 0.35
+        loopCount: 0
+        loopType: 0
+        actions:
+        - rid: 8084794329897369626
+    - rid: 8084794329897369626
+      type: {class: RectTransformSizeDOTweenAction, ns: BrunoMikoski.AnimationSequencer, asm: BrunoMikoski.AnimationSequencer}
+      data:
+        direction: 0
+        ease:
+          ease: 6
+          curve:
+            serializedVersion: 2
+            m_Curve: []
+            m_PreInfinity: 2
+            m_PostInfinity: 2
+            m_RotationOrder: 4
+        isRelative: 0
+        sizeDelta: {x: 400, y: 200}
+        axisConstraint: 0
+    - rid: 8084794329897369627
+      type: {class: DOTweenAnimationStep, ns: BrunoMikoski.AnimationSequencer, asm: BrunoMikoski.AnimationSequencer}
+      data:
+        delay: 0.1
+        flowType: 1
+        target: {fileID: 6886098181383194519}
+        duration: 0.35
+        loopCount: 0
+        loopType: 0
+        actions:
+        - rid: 8084794329897369628
+    - rid: 8084794329897369628
+      type: {class: AnchoredPositionMoveToPositionDOTweenActionBase, ns: BrunoMikoski.AnimationSequencer, asm: BrunoMikoski.AnimationSequencer}
+      data:
+        direction: 0
+        ease:
+          ease: 6
+          curve:
+            serializedVersion: 2
+            m_Curve: []
+            m_PreInfinity: 2
+            m_PostInfinity: 2
+            m_RotationOrder: 4
+        isRelative: 0
+        axisConstraint: 0
+        position: {x: 0, y: 0}
 --- !u!1 &5927699783592927718
 GameObject:
   m_ObjectHideFlags: 0
@@ -1045,7 +1111,7 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5927699783592927718}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 23.780897}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 1
@@ -1214,7 +1280,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 0.5}
   m_AnchorMax: {x: 0, y: 0.5}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 394.47998, y: 200}
+  m_SizeDelta: {x: 0, y: 200}
   m_Pivot: {x: 0, y: 0.5}
 --- !u!114 &8659503254643161864
 MonoBehaviour:
@@ -1331,7 +1397,7 @@ MonoBehaviour:
     m_NormalColor: {r: 1, g: 1, b: 1, a: 1}
     m_HighlightedColor: {r: 0.990566, g: 0.08877712, b: 0.08877712, a: 1}
     m_PressedColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 1}
-    m_SelectedColor: {r: 0.9056604, g: 0, b: 0, a: 1}
+    m_SelectedColor: {r: 1, g: 1, b: 1, a: 1}
     m_DisabledColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 0.5019608}
     m_ColorMultiplier: 1
     m_FadeDuration: 0.1
@@ -1366,7 +1432,7 @@ MonoBehaviour:
   description: {fileID: 6886098181383194519}
   cardParent: {fileID: 6792569848532003894}
   cardImage: {fileID: 9108536693009369150}
-  sequence: {fileID: 0}
+  sequence: {fileID: 1910095643697333796}
 --- !u!1 &7450110944483460551
 GameObject:
   m_ObjectHideFlags: 0
