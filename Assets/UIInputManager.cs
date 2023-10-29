@@ -25,6 +25,9 @@ public class UIInputManager : MonoBehaviour
     [SerializeField] Button p1RoundCanvasFirstSelected;
     [SerializeField] Canvas p2RoundCanvas;
     [SerializeField] Button p2RoundCanvasFirstSelected;
+    
+    [SerializeField] private GameEvent _levelLoadedEvent;
+    [SerializeField] private GameEvent_PlayerType _matchEndEvent;
 
     void Start()
     {
@@ -52,8 +55,27 @@ public class UIInputManager : MonoBehaviour
     }
 
     public void SetUpGame(){
+        MatchSystem.instance.StartGame(1);
+        _levelLoadedEvent.AddListener(OnLevelLoaded);
+        _matchEndEvent.AddListener(OnMatchEnd);
+    }
+
+    private void ShowPowerUpSelectionMenu()
+    {
         mainMenuCanvas.gameObject.SetActive(false);
         betweenRoundsMenu.gameObject.SetActive(true);
         SetRoundsMenuInputs();
+    }
+
+    private void OnMatchEnd(PlayerType obj)
+    {
+        _matchEndEvent.RemoveListener(OnMatchEnd);
+        ShowPowerUpSelectionMenu();
+    }
+
+    private void OnLevelLoaded()
+    {
+        _levelLoadedEvent.RemoveListener(OnLevelLoaded);
+        ShowPowerUpSelectionMenu();
     }
 }

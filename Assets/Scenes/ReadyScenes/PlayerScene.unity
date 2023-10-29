@@ -389,6 +389,10 @@ PrefabInstance:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 971094957438282718, guid: 00ad88d70eaef6d439490d624e43ef2f, type: 3}
+      propertyPath: _testPowerUp
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 971094957438282718, guid: 00ad88d70eaef6d439490d624e43ef2f, type: 3}
       propertyPath: _testActivePower
       value: 
       objectReference: {fileID: 11400000, guid: c8b440bc8a08dc94a8d7fb6f4c31dd09, type: 2}
@@ -572,6 +576,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 971094957438282718, guid: 00ad88d70eaef6d439490d624e43ef2f, type: 3}
+      propertyPath: _testPowerUp
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 971094957438282718, guid: 00ad88d70eaef6d439490d624e43ef2f, type: 3}
       propertyPath: _testPassivePowers.Array.size
       value: 2
