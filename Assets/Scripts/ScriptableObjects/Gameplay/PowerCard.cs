@@ -12,4 +12,5 @@ public class PowerCard : ScriptableObject
     public float chargeTime;
     public string passiveDescription;
     public int type;
+    public PowerUpClass PowerUpPrefab;
 }
