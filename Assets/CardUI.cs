@@ -28,6 +28,7 @@ public class CardUI : MonoBehaviour, ISelectHandler, IDeselectHandler, ISubmitHa
 
     public void OnSubmit(BaseEventData eventData)
     {
+        description.SetActive(false);
         cardParent.SelectCard();
     }
 
