@@ -18,3 +18,4 @@ MonoBehaviour:
   duration: 20
   chargeTime: 0
   passiveDescription: 
+  type: 2
