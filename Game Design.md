@@ -1,67 +1,126 @@
----
-tags:
-  - Project/Game
-aliases:
-  - HyperPong
-status: ongoing
----
-
 # Pitch
-> Pong is a great base mechanic. One of the most fundamental mechanic of a multiplayer game
 
+> Pong is a great base mechanic. One of the most fundamental mechanic of a multiplayer game
 
 # Features
 
 ## Power Ups
+
 At the start of the game, each player will pick a power up, from then on, losing player get to pick a new upgrade
 
 ### Offensive
-- Aim
-	- Active
-		Can redirect if the ball is still in player's area
-		duration: once
-		charge: 10s
-	- Passive
-		Aim on bounce back
-- invincible on bounce back 
-	- Active
-		on bounce back, ball will be invincible until it reaches enemy's area
-	- Passive
-		
 
+- Aim
+  - Active
+    Can redirect if the ball is still in player's area
+    duration: once
+    charge: 10s
+  - Passive
+    Aim on bounce back
+- Invisible
+  - Active
+    on bounce back, ball will be invisible until it reaches enemy's area
+    duration: instant
+    charge: 20s
+  - Passive
+    on bounce back, ball will be invisible for 0.3s
+- Split
+  - Active
+    on bounce back, split the ball into 3 random direction, 2 of which will disappear when it reaches enemy's area
+    duration: instant
+    charge: 15s
+  - Passive
+    on bounce back, split the ball into 2 random direction, 1 of which will disappear in 0.3s
+- Explosive
+  - Active
+    on bounce back, ball will be 2x faster
+    duration: instant
+    charge: 15s
+  - Passive
+    ball movement towards enemy is 10% faster
+- Tangle
+  - Active
+    if the ball is in Player's area, move the enemy to the edge
+    duration: instant
+    charge: 15s
 
 ### Defensive
+
 - Reversal
-	- Active
-		reverse ball as soon as it enters player's area
-		duration: once
-		charge: 15s
-	- Passive
-		ball towards enemy is 10% faster
-- Area where ball is slow towards player's goal
-	- Active
-		place a circle where the ball towards you will be 50% slower
-		duration: 4s
-		charge: 20s
-	- Passive
-		ball towards you is 10% slower
-### Movement
+  - Active
+    reverse ball as soon as it enters player's area
+    duration: instant
+    charge: 15s
+  - Passive
+    ball towards enemy is 10% faster
+- Shield
+  - Active
+    place a circle where the ball towards you will be 50% slower
+    duration: 4s
+    charge: 20s
+  - Passive
+    ball towards you is 10% slower
+- Dash
+  - Active
+    dashes in a direction
+    duration: once
+    charge: 5s
+  - Passive
+    increase player speed 20%
+- Extension
+  - Active
+    Player is 2 times longer
+    duration: 4s
+    charge: 20s
+  - Passive
+    player is 10% longer
+- Magnet
+  - Active
+    ball will slowly redirect towards player
+    duration: 10s
+    charge: 20s
+  - Passive
+    ball towards you is 10% slower
 
 ### Special
+
 - Move player's area
-- Reverse enemy's control when the ball is in player's area
+  Move player's area further to the enemy's
+  duration: 15s
+- Confusion
+  Reverse enemy's control when the ball is in player's area
+  duration: 10s
+- bricks
+  give bricks style defensive behind player
+  duration: 20s
+- Minify
+  shorten the enemy by 50%
+  duration: 15s
+- All-out Attack
+  activate all of your offensive card's active ability
 
 ## Level Variety
 
 ### Different Shapes
 
 ### Dynamic Levels
+
 - by use of shape keys
 - by moving the camera
 
 ### Environment 'Power Ups'
 
-## Lingo
-- Player's Area
-	The area between the dotted line and player's goal
+- Magnet type
 
+## Lingo
+
+- Player's Area
+  The area between the dotted line and player's goal
+
+## For later
+
+- Contrast
+  - Active
+    fill the player path except for the actual player position
+  - Passive
+    player is 10% longer
