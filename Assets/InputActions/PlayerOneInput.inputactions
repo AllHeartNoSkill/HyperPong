@@ -370,7 +370,7 @@
                 {
                     "name": "",
                     "id": "b1e2c743-750e-479d-b700-738f82f12538",
-                    "path": "*/{Submit}",
+                    "path": "<Keyboard>/e",
                     "interactions": "",
                     "processors": "",
                     "groups": "",

@@ -10,11 +10,11 @@ public class CardUIParent : MonoBehaviour
     [SerializeField] GameObject confirmButton;
     [SerializeField] MultiplayerEventSystem eventSystem;
 
-    [SerializeField] int powerCardId;
+    // [SerializeField] int powerCardId;
     public PowerCard powerCard;
 
-    private void Start() {
-        powerCard = PowerReference.instance.powerCards[powerCardId];
+    public void InitCard(int id) {
+        powerCard = PowerReference.instance.powerCards[id];
         cardUI.AssignImage(powerCard.cardSprite);
     }
     
