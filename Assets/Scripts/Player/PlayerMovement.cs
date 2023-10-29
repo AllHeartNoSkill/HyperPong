@@ -27,6 +27,8 @@ public class PlayerMovement : MonoBehaviour
     private float _maxDistance;
     private float _currentDistance;
 
+    public PlayerType PlayerType1 => _playerType;
+
     private void Update()
     {
         if (_moveAxis != 0)
@@ -66,8 +68,11 @@ public class PlayerMovement : MonoBehaviour
 
     private void TraversePath()
     {
-        transform.position = _pathCreator.path.GetPointAtDistance(_currentDistance, _endOfPathInstruction);
-        transform.rotation = _pathCreator.path.GetRotationAtDistance(_currentDistance, _endOfPathInstruction);
+        if (_pathCreator != null)
+        {
+            transform.position = _pathCreator.path.GetPointAtDistance(_currentDistance, _endOfPathInstruction);
+            transform.rotation = _pathCreator.path.GetRotationAtDistance(_currentDistance, _endOfPathInstruction);
+        }
     }
 
     private void SetDistance()

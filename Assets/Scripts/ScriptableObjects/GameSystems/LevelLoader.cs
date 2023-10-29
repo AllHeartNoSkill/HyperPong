@@ -7,6 +7,7 @@ using UnityEngine.SceneManagement;
 
 public class LevelLoader : Singleton<LevelLoader>
 {
+    [SerializeField] private int _sceneOffset = 3;
     [Header("Game Events")] 
     [SerializeField] private GameEvent _levelLoadedEvent;
     [SerializeField] private GameEvent _playerLoadedEvent;
@@ -30,15 +31,53 @@ public class LevelLoader : Singleton<LevelLoader>
         StartCoroutine(UnloadLevelScene(level));
     }
 
+    public void UnloadPlayer()
+    {
+        StartCoroutine(UnloadPlayerScene());
+    }
+
+    public void LoadMenu()
+    {
+        StartCoroutine(LoadSceneAsync(2, LoadSceneMode.Single));
+    }
+
+    public void OnlyLoadPlayer()
+    {
+        StartCoroutine(LoadPlayerOnly());
+        IEnumerator LoadPlayerOnly()
+        {
+            
+            AsyncOperation loadScene = SceneManager.LoadSceneAsync(PlayerSceneIndex, mode: LoadSceneMode.Additive);
+            while (!loadScene.isDone)
+            {
+                yield return null;
+            }
+        
+            _levelLoadedEvent.TriggerEvent();
+            _playerLoadedEvent.TriggerEvent();
+            _matchReadyEvent.TriggerEvent();
+        }
+    }
+
     private IEnumerator UnloadLevelScene(int level)
     {
-        AsyncOperation unloadScene = SceneManager.UnloadSceneAsync(LevelSceneIndex(level), UnloadSceneOptions.None);
+        AsyncOperation unloadScene = SceneManager.UnloadSceneAsync(LevelSceneIndex(level), UnloadSceneOptions.UnloadAllEmbeddedSceneObjects);
         while (!unloadScene.isDone)
         {
             yield return null;
         }
         
         _levelUnloadedEvent.TriggerEvent();
+    }
+
+    private IEnumerator UnloadPlayerScene()
+    {
+        AsyncOperation unloadScene = SceneManager.UnloadSceneAsync(PlayerSceneIndex, UnloadSceneOptions.None);
+        while (!unloadScene.isDone)
+        {
+            yield return null;
+        }
+
     }
     
     private IEnumerator LoadLevelScene(int level)
@@ -65,6 +104,15 @@ public class LevelLoader : Singleton<LevelLoader>
         StartCoroutine(LoadLevelScene(level));
     }
 
-    private int LevelSceneIndex(int level) => level + 1;
-    private int PlayerSceneIndex => 1;
+    private IEnumerator LoadSceneAsync(int sceneIndex, LoadSceneMode mode)
+    {
+        AsyncOperation loadScene = SceneManager.LoadSceneAsync(sceneIndex, mode);
+        while (!loadScene.isDone)
+        {
+            yield return null;
+        }
+    }
+
+    private int LevelSceneIndex(int level) => level + _sceneOffset;
+    private int PlayerSceneIndex => _sceneOffset;
 }

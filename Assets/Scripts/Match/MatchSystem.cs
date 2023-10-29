@@ -2,13 +2,19 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.Serialization;
 
 public class MatchSystem : Singleton<MatchSystem>
 {
+    [Header("Match Data")]
+    [SerializeField] private int _roundWinCount = 3;
+    [SerializeField] private int _matchWinCount = 6;
+    
     [Header("Test Param")]
     [SerializeField] private bool _playOnAwake = true;
     [SerializeField] private int _testLevel = 1;
+    [SerializeField] private bool _levelTest = false;
 
     [Header("Game Events")] 
     [SerializeField] private GameEvent _matchReadyEvent;
@@ -32,10 +38,20 @@ public class MatchSystem : Singleton<MatchSystem>
 
     private void Start()
     {
+        if (_levelTest) _roundWinCount = 999999;
         if (_playOnAwake)
         {
             StartGame(_testLevel);
         }
+        else
+        {
+            LoadMenu();
+        }
+    }
+
+    private void LoadMenu()
+    {
+        SceneManager.LoadScene(2);
     }
 
     private void ResetGameData()
@@ -67,7 +83,8 @@ public class MatchSystem : Singleton<MatchSystem>
 
     public void EndGame(PlayerType winner)
     {
-        
+        _isGameOnGoing = false;
+        LevelLoader.instance.LoadMenu();
     }
 
     private void PrepareMatch(int level)
@@ -77,7 +94,14 @@ public class MatchSystem : Singleton<MatchSystem>
         _currentLevel = level;
         
         RestartMatchData();
-        LevelLoader.instance.LoadLevel(level, _matchCount == 0);
+        if (_levelTest)
+        {
+            LevelLoader.instance.OnlyLoadPlayer();
+        }
+        else
+        {
+            LevelLoader.instance.LoadLevel(level, _matchCount == 0);
+        }
         _matchReadyEvent.AddListener(OnMatchReady);
     }
 
@@ -101,7 +125,7 @@ public class MatchSystem : Singleton<MatchSystem>
         _matchCount += 1;
         
         _playersMatchScore[(int)winner] += 1;
-        if (_playersMatchScore[(int)winner] >= 3)
+        if (_playersMatchScore[(int)winner] >= _matchWinCount)
         {
             Debug.Log($"match ended and game too");
             EndGame(winner);
@@ -143,7 +167,7 @@ public class MatchSystem : Singleton<MatchSystem>
         _roundEndEvent.RemoveListener(RoundEnd);
         
         _playersRoundScore[(int)roundWinner] += 1;
-        if (_playersRoundScore[(int)roundWinner] >= 3)
+        if (_playersRoundScore[(int)roundWinner] >= _roundWinCount)
         {
             MatchEnd(roundWinner);
             return;

@@ -9,9 +9,11 @@ public class BallMovement : MonoBehaviour
     [SerializeField] private Vector3 ballDirection = new Vector3(1, 0, 0);
     [SerializeField] private float castRadius = 1f;
 
+    private bool _middleHitRequest = false;
     private Transform ballTransform;
     private Vector3 _lastFramePosition;
     private GameObject _lastCollidedObject;
+    private PlayerType _owner;
 
     private void Awake()
     {
@@ -64,15 +66,21 @@ public class BallMovement : MonoBehaviour
     private void ReflectBall(RaycastHit hit)
     {
         CheckGoalPost(hit);
+        CheckMiddleArea(hit);
+        
+        if(hit.collider.isTrigger) return;
         
         if (hit.transform.TryGetComponent(out PlayerMovement player))
         {
             ballDirection = player.GetDirectionRelativeToPlayer(hit.point);
+            _owner = player.PlayerType1;
         }
         else
         {
             ballDirection = Vector3.Reflect(ballDirection, hit.normal).normalized;
         }
+
+        _middleHitRequest = false;
 
         ballDirection.z = 0;
         Debug.Log("hit " + ballDirection);
@@ -85,6 +93,15 @@ public class BallMovement : MonoBehaviour
             goal.BallTouchGoal();
             gameObject.SetActive(false);
         }
+    }
+
+    private void CheckMiddleArea(RaycastHit hit)
+    {
+        LevelMiddle midPoint;
+        if (!hit.transform.TryGetComponent(out midPoint)) return;
+        if(_middleHitRequest) return;
+        _middleHitRequest = true;
+        Debug.Log("HIT MIDDLE");
     }
 
     private void OnDrawGizmos()
