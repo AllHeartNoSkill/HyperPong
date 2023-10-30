@@ -25,7 +25,7 @@ public class GameplayUI : MonoBehaviour
         InitCards();
     }
 
-    private void InitCards(){
+    public void InitCards(){
         isOtherPlayer = false;
         foreach(CardUIParent card in p1CardParents){
             int index = Random.Range(0, 5);
@@ -57,6 +57,7 @@ public class GameplayUI : MonoBehaviour
                 p2Cards.SetActive(false);
                 p2Notif.SetActive(true);
             }
+            isOtherPlayer = true;
         }
         else{
             uIInputManager.betweenRoundsMenu.SetActive(false);
