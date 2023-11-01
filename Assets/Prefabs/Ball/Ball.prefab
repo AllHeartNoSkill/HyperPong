@@ -28,7 +28,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -7.63, y: 0, z: 0}
-  m_LocalScale: {x: 0.5, y: 0.5, z: 0.5}
+  m_LocalScale: {x: 0.3, y: 0.3, z: 0.3}
   m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 0}
@@ -99,6 +99,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _ballBounceEvent: {fileID: 11400000, guid: 1cb0d29cc82c01c45bd67725e9d97b85, type: 2}
   _ballPassMiddle: {fileID: 11400000, guid: 541fb3c97f2612b489f2ee2cef135bdd, type: 2}
-  baseSpeed: 20
+  baseSpeed: 15
   ballDirection: {x: 1, y: 0, z: 0}
-  castRadius: 0.26
+  castRadius: 0.2
