@@ -12,6 +12,12 @@ public class GameplayUI : MonoBehaviour
 
     [SerializeField] UIInputManager uIInputManager;
 
+    [SerializeField] GameObject p1Cards;
+    [SerializeField] GameObject p1Notif;
+
+    [SerializeField] GameObject p2Cards;
+    [SerializeField] GameObject p2Notif;
+
     bool isOtherPlayer = false;
 
 
@@ -19,14 +25,16 @@ public class GameplayUI : MonoBehaviour
         InitCards();
     }
 
-    private void InitCards(){
+    public void InitCards(){
         isOtherPlayer = false;
         foreach(CardUIParent card in p1CardParents){
-            card.InitCard(0);
+            int index = Random.Range(0, 5);
+            card.InitCard(index);
         }
 
         foreach(CardUIParent card in p2CardParents){
-            card.InitCard(0);
+            int index = Random.Range(0, 5);
+            card.InitCard(index);
         }
     }
 
@@ -38,7 +46,19 @@ public class GameplayUI : MonoBehaviour
             assignActive.TriggerEvent(player, card);
         }
 
-        if (!isOtherPlayer) isOtherPlayer = true;
+        
+
+        if (!isOtherPlayer){
+            if(player == PlayerType.PlayerOne){
+                p1Cards.SetActive(false);
+                p1Notif.SetActive(true);
+            }
+            else{
+                p2Cards.SetActive(false);
+                p2Notif.SetActive(true);
+            }
+            isOtherPlayer = true;
+        }
         else{
             uIInputManager.betweenRoundsMenu.SetActive(false);
             startMatch.TriggerEvent();

@@ -4,6 +4,7 @@ using System.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.InputSystem.UI;
+using UnityEngine.PlayerLoop;
 using UnityEngine.UI;
 
 public class UIInputManager : MonoBehaviour
@@ -28,6 +29,10 @@ public class UIInputManager : MonoBehaviour
     
     [SerializeField] private GameEvent _levelLoadedEvent;
     [SerializeField] private GameEvent_PlayerType _matchEndEvent;
+    [SerializeField] private GameEvent _matchReadyEvent;
+
+    [SerializeField] GameplayUI gameplayUI;
+    private bool firstPlay = true;
 
     void Start()
     {
@@ -69,13 +74,19 @@ public class UIInputManager : MonoBehaviour
 
     private void OnMatchEnd(PlayerType obj)
     {
+        Debug.Log("Bruh");
         _matchEndEvent.RemoveListener(OnMatchEnd);
-        ShowPowerUpSelectionMenu();
     }
 
     private void OnLevelLoaded()
     {
-        _levelLoadedEvent.RemoveListener(OnLevelLoaded);
-        ShowPowerUpSelectionMenu();
+        // _levelLoadedEvent.RemoveListener(OnLevelLoaded);
+        if(firstPlay){
+            ShowPowerUpSelectionMenu();
+            firstPlay = false;
+        }
+        else{
+            _matchReadyEvent.TriggerEvent();
+        }
     }
 }
