@@ -21,6 +21,7 @@ public class BallMovement : MonoBehaviour
     private bool _middleHitRequest = false;
     private Transform _ballTransform;
     private Vector3 _lastFramePosition;
+    private Vector3 _currentPosition;
     private GameObject _lastCollidedObject;
     private PlayerType _owner;
     private PlayerType _inWhatArea;
@@ -34,6 +35,7 @@ public class BallMovement : MonoBehaviour
     private void Awake()
     {
         _ballTransform = gameObject.transform;
+        _currentPosition = _ballTransform.position;
     }
 
     public void SetData(float minSpeed, float maxSpeed, float speedIncrement, float roundRestartIncrementMul)
@@ -47,16 +49,18 @@ public class BallMovement : MonoBehaviour
 
     public void Init(Vector3 startDirection, PlayerType owner)
     {
+        _currentPosition = _ballTransform.position;
         ballDirection = startDirection;
         _owner = owner;
     }
 
     void Update()
     {
-        _lastFramePosition = _ballTransform.position;
+        _lastFramePosition = _currentPosition;
         MoveBall();
-        CheckForCollision(_ballTransform.position);
-        CheckForCollision(_lastFramePosition);
+        _currentPosition = _ballTransform.position;
+        CheckForCollision(_currentPosition);
+        CheckForCollision(_lastFramePosition, Vector3.Distance(_currentPosition, _lastFramePosition));
         
         if (Input.GetKeyDown(KeyCode.R))
         {
@@ -69,6 +73,7 @@ public class BallMovement : MonoBehaviour
     {
         _ballTransform.position = new Vector3(0f, 0, 0);
         ballDirection = new Vector3(1, 0, 0);
+        _currentPosition = _ballTransform.position;
     }
 
     void MoveBall(){
@@ -76,14 +81,15 @@ public class BallMovement : MonoBehaviour
         _ballTransform.position += baseSpeed  * Time.deltaTime * ballDirection;
     }
 
-    void CheckForCollision(Vector3 startPosition){
+    void CheckForCollision(Vector3 startPosition, float distance = 1){
         RaycastHit hit;
         float distanceToObstacle = 0;
 
-        if (Physics.SphereCast(startPosition, castRadius, ballDirection, out hit, 1))
+        if (Physics.SphereCast(startPosition, castRadius, ballDirection, out hit, distance))
         {
             distanceToObstacle = hit.distance;
             if(distanceToObstacle < castRadius){
+                Debug.Log($"habib - {hit.transform.name}");
                 ReflectBall(hit);
             }
         }
