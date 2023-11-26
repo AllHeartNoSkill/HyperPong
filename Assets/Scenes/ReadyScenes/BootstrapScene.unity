@@ -194,7 +194,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1171259244987472858, guid: 25cda5a44e9566f44a0eceeef24ba523, type: 3}
       propertyPath: _levelCount
-      value: 10
+      value: 11
       objectReference: {fileID: 0}
     - target: {fileID: 1171259244987472858, guid: 25cda5a44e9566f44a0eceeef24ba523, type: 3}
       propertyPath: _playOnAwake

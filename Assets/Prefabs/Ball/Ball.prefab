@@ -102,3 +102,6 @@ MonoBehaviour:
   baseSpeed: 15
   ballDirection: {x: 1, y: 0, z: 0}
   castRadius: 0.2
+  _collisionLayers:
+    serializedVersion: 2
+    m_Bits: 51

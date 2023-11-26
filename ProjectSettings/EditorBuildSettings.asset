@@ -23,12 +23,12 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/ReadyScenes/PlayerScene.unity
     guid: 15639af8366479b41b5ee9d5e9240875
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/ReadyScenes/Levels/LevelSceneForPitch.unity
     guid: 7802d1eb8e398c7419e0f1233651defe
-  - enabled: 1
-    path: Assets/Scenes/ReadyScenes/Levels/LevelScene9.unity
-    guid: 6f617b519e53cad4f9c1a3e8cb7b0410
+  - enabled: 0
+    path: Assets/Scenes/ReadyScenes/Levels/LevelSceneTestMovement.unity
+    guid: 5559ea00b0391bf45824ec92c0f8bfe2
   - enabled: 1
     path: Assets/Scenes/ReadyScenes/Levels/LevelScene1.unity
     guid: 6ce7afe554d73364cad0b766f155d3b5
@@ -53,6 +53,9 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/ReadyScenes/Levels/LevelScene8.unity
     guid: da85a39e04a69db4a8c1e729dac75071
+  - enabled: 1
+    path: Assets/Scenes/ReadyScenes/Levels/LevelScene9.unity
+    guid: 6f617b519e53cad4f9c1a3e8cb7b0410
   - enabled: 1
     path: Assets/Scenes/ReadyScenes/Levels/LevelScene10.unity
     guid: 5d12ac1af838f4942b675b2f9d56a939

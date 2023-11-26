@@ -11,7 +11,10 @@ public class BallMovement : MonoBehaviour
     
     [SerializeField] private float baseSpeed = 1f; // shouldn't be here
     [SerializeField] private Vector3 ballDirection = new Vector3(1, 0, 0);
+    
+    [Header("Collision Check")]
     [SerializeField] private float castRadius = 1f;
+    [SerializeField] private LayerMask _collisionLayers;
     
     private float _minBallSpeed;
     private float _maxBallSpeed;
@@ -22,9 +25,11 @@ public class BallMovement : MonoBehaviour
     private Transform _ballTransform;
     private Vector3 _lastFramePosition;
     private Vector3 _currentPosition;
-    private GameObject _lastCollidedObject;
+    private Collider _lastCollidedObject;
     private PlayerType _owner;
     private PlayerType _inWhatArea;
+
+    private List<GameObject> _ignoredRaycastObj = new List<GameObject>(); 
     
     public bool DestroyOnMiddle { get; set; }
 
@@ -60,7 +65,7 @@ public class BallMovement : MonoBehaviour
         MoveBall();
         _currentPosition = _ballTransform.position;
         CheckForCollision(_currentPosition);
-        CheckForCollision(_lastFramePosition, Vector3.Distance(_currentPosition, _lastFramePosition));
+        CheckForCollision(_lastFramePosition, Vector3.Distance(_currentPosition, _lastFramePosition), true);
         
         if (Input.GetKeyDown(KeyCode.R))
         {
@@ -81,26 +86,51 @@ public class BallMovement : MonoBehaviour
         _ballTransform.position += baseSpeed  * Time.deltaTime * ballDirection;
     }
 
-    void CheckForCollision(Vector3 startPosition, float distance = 1){
+    void CheckForCollision(Vector3 startPosition, float distance = 1f, bool continuousDetect = false){
         RaycastHit hit;
         float distanceToObstacle = 0;
 
-        if (Physics.SphereCast(startPosition, castRadius, ballDirection, out hit, distance))
+        if (Physics.SphereCast(startPosition, castRadius, ballDirection, out hit, distance, _collisionLayers))
         {
             distanceToObstacle = hit.distance;
-            if(distanceToObstacle < castRadius){
+            if(distanceToObstacle < castRadius || continuousDetect){
                 Debug.Log($"habib - {hit.transform.name}");
-                ReflectBall(hit);
+                ReflectBall(hit, continuousDetect);
             }
         }
+        
+        ClearIgnoredObjects();
     }
 
-    private void ReflectBall(RaycastHit hit)
+    private void ClearIgnoredObjects()
+    {
+        foreach (var ignoredObj in _ignoredRaycastObj)
+        {
+            ignoredObj.layer = 0;
+        }
+        _ignoredRaycastObj.Clear();
+    }
+
+    private void ReflectBall(RaycastHit hit, bool continuousDetect = false)
     {
         CheckGoalPost(hit);
         CheckMiddleArea(hit);
-        
-        if(hit.collider.isTrigger) return;
+
+        Vector3 correctedNextPosition = hit.point + (hit.normal * castRadius);
+        if (hit.collider.isTrigger)
+        {
+            GameObject colliderObj = hit.collider.gameObject;
+            colliderObj.layer = 2;
+            _ignoredRaycastObj.Add(colliderObj);
+            CheckForCollision(correctedNextPosition, Vector3.Distance(_currentPosition, correctedNextPosition), true);
+            return;
+        }
+
+        if (continuousDetect)
+        {
+            _ballTransform.position = correctedNextPosition;
+            _currentPosition = _ballTransform.position;
+        }
         
         if (hit.transform.TryGetComponent(out PlayerMovement player))
         {
@@ -124,7 +154,8 @@ public class BallMovement : MonoBehaviour
         _inWhatArea = SwitchAreaFrom(_owner);
         _ballBounceEvent.TriggerEvent(_owner);
 
-        baseSpeed += _speedIncrement;
+        // baseSpeed += _speedIncrement;
+        baseSpeed = Mathf.Clamp(baseSpeed + _speedIncrement, _minBallSpeed, _maxBallSpeed);
     }
 
     private PlayerType SwitchAreaFrom(PlayerType currentArea)
@@ -137,7 +168,8 @@ public class BallMovement : MonoBehaviour
         if (hit.transform.TryGetComponent(out LevelGoal goal))
         {
             goal.BallTouchGoal();
-            baseSpeed -= (_speedIncrement * _roundRestartIncrementMul);
+            // baseSpeed -= (_speedIncrement * _roundRestartIncrementMul);
+            baseSpeed = Mathf.Clamp(baseSpeed - (_speedIncrement * _roundRestartIncrementMul), _minBallSpeed, _maxBallSpeed);
             gameObject.SetActive(false);
         }
     }
@@ -159,6 +191,7 @@ public class BallMovement : MonoBehaviour
     private void OnDrawGizmos()
     {
         Gizmos.DrawSphere(transform.position, castRadius);
+        Gizmos.DrawLine(_lastFramePosition, _currentPosition);
     }
 
     public void ReverseDirection()
