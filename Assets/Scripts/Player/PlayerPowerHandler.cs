@@ -179,7 +179,6 @@ public class PlayerPowerHandler : MonoBehaviour
 
     public void Skill1(InputAction.CallbackContext context)
     {
-        Debug.Log(context.phase);
         //Offensive skill
         if (context.phase != InputActionPhase.Started) return;
         if (_activeOffense == null) return;

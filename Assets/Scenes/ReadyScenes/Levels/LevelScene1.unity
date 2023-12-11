@@ -587,14 +587,6 @@ PrefabInstance:
       value: BallSpawner
       objectReference: {fileID: 0}
     - target: {fileID: 9055625671918671374, guid: 082897e682c7ed349867caf997bb8147, type: 3}
-      propertyPath: _maxBallSpeed
-      value: 100
-      objectReference: {fileID: 0}
-    - target: {fileID: 9055625671918671374, guid: 082897e682c7ed349867caf997bb8147, type: 3}
-      propertyPath: _minBallSpeed
-      value: 80
-      objectReference: {fileID: 0}
-    - target: {fileID: 9055625671918671374, guid: 082897e682c7ed349867caf997bb8147, type: 3}
       propertyPath: _ballSpawnPoint
       value: 
       objectReference: {fileID: 316241223}
@@ -1232,7 +1224,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 5533226960712926701, guid: 87f2b0a1cf082a441b6bb484c33e5d9a, type: 3}
       propertyPath: _playerLength
-      value: 10
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5533226960712926701, guid: 87f2b0a1cf082a441b6bb484c33e5d9a, type: 3}
       propertyPath: _playerOnePath

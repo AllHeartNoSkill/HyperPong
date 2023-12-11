@@ -10,6 +10,8 @@ public class Bootstraper : MonoBehaviour
     [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.BeforeSceneLoad)]
     static void Init()
     {
+        return;
+        
         var currentlyLoadedEditorScene = SceneManager.GetActiveScene();
         
         if(currentlyLoadedEditorScene.name == "BootstrapScene")

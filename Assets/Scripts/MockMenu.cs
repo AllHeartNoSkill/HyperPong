@@ -11,7 +11,7 @@ public class MockMenu : MonoBehaviour
     public void StartGame()
     {
         _levelLoadedEvent.AddListener(OnLevelLoaded);
-        MatchSystem.instance.StartGame(1);
+        // MatchSystem.instance.StartGame(1);
     }
 
     private void OnLevelLoaded()

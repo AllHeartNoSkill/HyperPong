@@ -8,20 +8,20 @@ EditorBuildSettings:
   - enabled: 0
     path: Assets/Scenes/SampleScene.unity
     guid: 8c9cfa26abfee488c85f1582747f6a02
-  - enabled: 1
-    path: Assets/Scenes/ReadyScenes/BootstrapScene.unity
+  - enabled: 0
+    path: Assets/Scenes/ReadyScenes/Boot.unity
     guid: 9dea334b82733924e8ab99a7e401c6dc
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/ReadyScenes/LevelTestBootstrapScene.unity
     guid: 672e7a823da99e34e82deef59ff1c856
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/ReadyScenes/MenuTestBootstrapScene.unity
     guid: e92f8919c06644e4b80b99ddd9f8c387
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/MenuMockScene.unity
     guid: 08c94084b550dc84e924844721f498a1
   - enabled: 1
-    path: Assets/Scenes/ReadyScenes/PlayerScene.unity
+    path: Assets/Scenes/ReadyScenes/Main.unity
     guid: 15639af8366479b41b5ee9d5e9240875
   - enabled: 0
     path: Assets/Scenes/ReadyScenes/Levels/LevelSceneForPitch.unity
