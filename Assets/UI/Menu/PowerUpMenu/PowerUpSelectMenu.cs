@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class PowerUpSelectMenu : Menu
@@ -25,13 +26,31 @@ public class PowerUpSelectMenu : Menu
     [SerializeField] GameObject p2Notif;
 
     private int _playerChoose = 0;
+    private int _playerCount = 0;
 
     public override void PrePush()
     {
         base.PrePush();
         InitCards();
-        p1Canvas.SetActive(true);
-        p2Canvas.SetActive(true);
+
+        PlayerType lastRoundWinner = SystemRoot.instance.GetSystem<MatchSystem>().LastMatchWinner;
+        if (lastRoundWinner == PlayerType.PlayerOne)
+        {
+            p2Canvas.SetActive(true);
+            _playerCount = 1;
+        }
+        else if (lastRoundWinner == PlayerType.PlayerTwo)
+        {
+            p1Canvas.SetActive(true);
+            _playerCount = 1;
+        }
+        else
+        {
+            p1Canvas.SetActive(true);
+            p2Canvas.SetActive(true);
+            _playerCount = 2;
+        }
+        
         _uiInputManager.SetPlayerOneInput(p1Canvas, p1CardParents[0].transform.GetChild(2).gameObject);
         _uiInputManager.SetPlayerTwoInput(p2Canvas, p2CardParents[0].transform.GetChild(2).gameObject);
     }
@@ -40,6 +59,8 @@ public class PowerUpSelectMenu : Menu
     {
         _playerChoose = 0;
         //TODO: Fix RNG, this is just a temp RNG
+
+        // List<PowerCard> playerPowerCards = _powerUpDatas.Except().ToList();
         foreach(CardUIParent card in p1CardParents){
             int index = Random.Range(0, _powerUpDatas.Count);
             card.InitCard(_powerUpDatas[index], PlayerType.PlayerOne, _uiInputManager.P1EventSystem);
@@ -58,20 +79,18 @@ public class PowerUpSelectMenu : Menu
         else{
             assignPassive.TriggerEvent(player, card);
         }
-
-        if (_playerChoose < 1){
-            Debug.Log(_playerChoose);
-            if(player == PlayerType.PlayerOne){
-                p1Cards.SetActive(false);
-                p1Notif.SetActive(true);
-            }
-            else{
-                p2Cards.SetActive(false);
-                p2Notif.SetActive(true);
-            }
-            _playerChoose += 1;
+        
+        if(player == PlayerType.PlayerOne){
+            p1Cards.SetActive(false);
+            p1Notif.SetActive(true);
         }
         else{
+            p2Cards.SetActive(false);
+            p2Notif.SetActive(true);
+        }
+        _playerChoose += 1;
+        
+        if (_playerChoose >= _playerCount){
             // uIInputManager.betweenRoundsMenu.SetActive(false);
             startMatch.TriggerEvent();
             Kill();
