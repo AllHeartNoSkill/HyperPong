@@ -150,7 +150,7 @@ public class BallMovement : MonoBehaviour
 
     private void CollideWithPlayer(PlayerMovement player)
     {
-        _owner = player.PlayerType1;
+        _owner = player.PlayerType;
         _inWhatArea = SwitchAreaFrom(_owner);
         _ballBounceEvent.TriggerEvent(_owner);
 

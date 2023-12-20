@@ -36,7 +36,7 @@ public class PlayerMovement : MonoBehaviour
     private float _speedModifier = 1;
     private float _scaleModifier = 1;
 
-    public PlayerType PlayerType1 => _playerType;
+    public PlayerType PlayerType => _playerType;
 
     private void Update()
     {

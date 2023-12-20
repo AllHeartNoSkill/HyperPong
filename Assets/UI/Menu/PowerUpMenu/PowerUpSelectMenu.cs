@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using UnityEngine.InputSystem.UI;
 
 public class PowerUpSelectMenu : Menu
 {
@@ -58,17 +59,20 @@ public class PowerUpSelectMenu : Menu
     private void InitCards()
     {
         _playerChoose = 0;
+        
+        PopulateCards(p1CardParents, _uiInputManager.P1EventSystem, PlayerType.PlayerOne);
+        PopulateCards(p2CardParents, _uiInputManager.P2EventSystem, PlayerType.PlayerTwo);
+    }
+
+    private void PopulateCards(CardUIParent[] cardParents, MultiplayerEventSystem eventSystem, PlayerType playerType)
+    {
         //TODO: Fix RNG, this is just a temp RNG
-
-        // List<PowerCard> playerPowerCards = _powerUpDatas.Except().ToList();
-        foreach(CardUIParent card in p1CardParents){
-            int index = Random.Range(0, _powerUpDatas.Count);
-            card.InitCard(_powerUpDatas[index], PlayerType.PlayerOne, _uiInputManager.P1EventSystem);
-        }
-
-        foreach(CardUIParent card in p2CardParents){
-            int index = Random.Range(0, _powerUpDatas.Count);
-            card.InitCard(_powerUpDatas[index], PlayerType.PlayerTwo, _uiInputManager.P2EventSystem);
+        List<PowerCard> playerPowerCards = _powerUpDatas
+            .Except(SystemRoot.instance.GetPlayerPowerHandler(playerType).AllPowerCards).ToList();
+        
+        foreach(CardUIParent card in cardParents){
+            int index = Random.Range(0, playerPowerCards.Count);
+            card.InitCard(playerPowerCards[index], playerType, eventSystem);
         }
     }
 
