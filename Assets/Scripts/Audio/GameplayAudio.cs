@@ -19,6 +19,12 @@ public class GameplayAudio : MonoBehaviour
         _playerBounceEvent.AddListener(OnPlayerBounce);
     }
 
+    private void OnDisable()
+    {
+      _wallBounceEvent.RemoveListener(OnWallBounce);
+      _playerBounceEvent.RemoveListener(OnPlayerBounce);
+    }
+
     private void OnWallBounce()
     {
         _ballAudioSource.PlayOneShot(_ballWallSound);
