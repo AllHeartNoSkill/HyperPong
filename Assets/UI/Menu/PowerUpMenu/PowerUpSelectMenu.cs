@@ -71,8 +71,14 @@ public class PowerUpSelectMenu : Menu
             .Except(SystemRoot.instance.GetPlayerPowerHandler(playerType).AllPowerCards).ToList();
         
         foreach(CardUIParent card in cardParents){
+            if (playerPowerCards.Count == 0)
+            {
+                card.gameObject.SetActive(false);
+                continue;
+            }
             int index = Random.Range(0, playerPowerCards.Count);
             card.InitCard(playerPowerCards[index], playerType, eventSystem);
+            playerPowerCards.RemoveAt(index);
         }
     }
 
