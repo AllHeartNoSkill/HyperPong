@@ -99,6 +99,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _ballBounceEvent: {fileID: 11400000, guid: 1cb0d29cc82c01c45bd67725e9d97b85, type: 2}
   _ballPassMiddle: {fileID: 11400000, guid: 541fb3c97f2612b489f2ee2cef135bdd, type: 2}
+  _ballWallBounce: {fileID: 11400000, guid: f48258d111f4a2f74b9dc97de9d59384, type: 2}
   baseSpeed: 15
   ballDirection: {x: 1, y: 0, z: 0}
   castRadius: 0.2
