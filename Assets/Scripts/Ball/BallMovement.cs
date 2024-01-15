@@ -8,14 +8,15 @@ public class BallMovement : MonoBehaviour
     [Header("Game Events")]
     [SerializeField] private GameEvent_PlayerType _ballBounceEvent;
     [SerializeField] private GameEvent _ballPassMiddle;
-    
+    [SerializeField] private GameEvent _ballWallBounce;
+
     [SerializeField] private float baseSpeed = 1f; // shouldn't be here
     [SerializeField] private Vector3 ballDirection = new Vector3(1, 0, 0);
-    
+
     [Header("Collision Check")]
     [SerializeField] private float castRadius = 1f;
     [SerializeField] private LayerMask _collisionLayers;
-    
+
     private float _minBallSpeed;
     private float _maxBallSpeed;
     private float _speedIncrement;
@@ -29,8 +30,8 @@ public class BallMovement : MonoBehaviour
     private PlayerType _owner;
     private PlayerType _inWhatArea;
 
-    private List<GameObject> _ignoredRaycastObj = new List<GameObject>(); 
-    
+    private List<GameObject> _ignoredRaycastObj = new List<GameObject>();
+
     public bool DestroyOnMiddle { get; set; }
 
     public PlayerType InWhatArea => _inWhatArea;
@@ -66,7 +67,7 @@ public class BallMovement : MonoBehaviour
         _currentPosition = _ballTransform.position;
         CheckForCollision(_currentPosition);
         CheckForCollision(_lastFramePosition, Vector3.Distance(_currentPosition, _lastFramePosition), true);
-        
+
         if (Input.GetKeyDown(KeyCode.R))
         {
             ResetBall();
@@ -81,24 +82,27 @@ public class BallMovement : MonoBehaviour
         _currentPosition = _ballTransform.position;
     }
 
-    void MoveBall(){
+    void MoveBall()
+    {
         // determine speed modifier from direction
-        _ballTransform.position += baseSpeed  * Time.deltaTime * ballDirection;
+        _ballTransform.position += baseSpeed * Time.deltaTime * ballDirection;
     }
 
-    void CheckForCollision(Vector3 startPosition, float distance = 1f, bool continuousDetect = false){
+    void CheckForCollision(Vector3 startPosition, float distance = 1f, bool continuousDetect = false)
+    {
         RaycastHit hit;
         float distanceToObstacle = 0;
 
         if (Physics.SphereCast(startPosition, castRadius, ballDirection, out hit, distance, _collisionLayers))
         {
             distanceToObstacle = hit.distance;
-            if(distanceToObstacle < castRadius || continuousDetect){
-                Debug.Log($"habib - {hit.transform.name}");
+            if (distanceToObstacle < castRadius || continuousDetect)
+            {
+                // Debug.Log($"habib - {hit.transform.name}");
                 ReflectBall(hit, continuousDetect);
             }
         }
-        
+
         ClearIgnoredObjects();
     }
 
@@ -131,7 +135,7 @@ public class BallMovement : MonoBehaviour
             _ballTransform.position = correctedNextPosition;
             _currentPosition = _ballTransform.position;
         }
-        
+
         if (hit.transform.TryGetComponent(out PlayerMovement player))
         {
             ballDirection = player.GetDirectionRelativeToPlayer(hit.point);
@@ -139,6 +143,7 @@ public class BallMovement : MonoBehaviour
         }
         else
         {
+            _ballWallBounce.TriggerEvent();
             ballDirection = Vector3.Reflect(ballDirection, hit.normal).normalized;
         }
 
@@ -178,7 +183,7 @@ public class BallMovement : MonoBehaviour
     {
         LevelMiddle midPoint;
         if (!hit.transform.TryGetComponent(out midPoint)) return;
-        if(_middleHitRequest) return;
+        if (_middleHitRequest) return;
         _middleHitRequest = true;
         _inWhatArea = SwitchAreaFrom(_inWhatArea);
         if (DestroyOnMiddle)
