@@ -339,7 +339,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 2142476360556664380, guid: 7dc901de94349d94db8cb0dce23fddd8, type: 3}
       propertyPath: _roundWinCount
-      value: 99
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 3079715344896556724, guid: 7dc901de94349d94db8cb0dce23fddd8, type: 3}
       propertyPath: m_Name

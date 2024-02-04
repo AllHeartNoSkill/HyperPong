@@ -4,8 +4,10 @@ using UnityEngine;
 
 public class SplitBallPowerUp : PowerUpClass
 {
+    [Header("Passive")]
+    [SerializeField] private float _passiveDuration = 0.3f;
+    
     private bool _isPassiveOnGoing = false;
-    private float _passiveDuration = 0.3f;
     private float _passiveCountdown;
     private PlayerType _playerType;
     
@@ -59,7 +61,7 @@ public class SplitBallPowerUp : PowerUpClass
         _isPassiveOnGoing = true;
     }
 
-    private void PassiveDone()
+    protected override void PassiveDone()
     {
         _isPassiveOnGoing = false;
         LevelLoadedData.BallSpawner.DestroyDecoyBalls();

@@ -79,4 +79,7 @@ public class PowerUpClass : MonoBehaviour
 
     public virtual void PassiveModifier(PlayerPowerHandler playerPowerHandler, PlayerType playerType)
     { }
+    
+    protected virtual void PassiveDone()
+    { }
 }

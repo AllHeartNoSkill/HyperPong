@@ -5,11 +5,14 @@ using UnityEngine.Serialization;
 
 public class ExtensionPowerUp : PowerUpClass
 {
+    [Header("Active")]
+    [SerializeField] private float _effectDuration = 4f;
+    
+    [Header("Game Events")]
     [SerializeField] private GameEvent_PlayerType _extensionStartEvent;
     [SerializeField] private GameEvent_PlayerType _extensionDoneEvent;
     [SerializeField] private GameEvent_PlayerType _extensionPassiveEvent;
     
-    private float _effectDuration = 4f;
     private float _effectCountdown;
     private PlayerType _playerType;
     

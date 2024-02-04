@@ -4,11 +4,14 @@ using UnityEngine;
 
 public class MudPitPowerUp : PowerUpClass
 {
+    [Header("Active")]
+    [SerializeField] private float _effectDuration = 5f;
+    
+    [Header("Game Events")]
     [SerializeField] private GameEvent_PlayerType _mudPitStartEvent;
     [SerializeField] private GameEvent_PlayerType _mudPitDoneEvent;
     [SerializeField] private GameEvent_PlayerType _mudPitPassiveEvent;
     
-    private float _effectDuration = 5f;
     private float _effectCountdown;
     private PlayerType _playerType;
     

@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using Unity.Mathematics;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.Serialization;
 
 public class PlayerPowerHandler : MonoBehaviour
 {
@@ -11,7 +12,7 @@ public class PlayerPowerHandler : MonoBehaviour
     [SerializeField] private GameEvent_PlayerType_PowerCard _skillActiveSelectedEvent;
     [SerializeField] private GameEvent_PlayerType_PowerCard _skillPassiveSelectedEvent;
     [SerializeField] private GameEvent_PlayerType _ballBounceEvent;
-    [SerializeField] private GameEvent _ballPassMiddle;
+    [SerializeField] private GameEvent _ballPassMiddleEvent;
 
     [Header("Test Param")]
     [SerializeField] private bool _testPowerUp = false;
@@ -70,7 +71,7 @@ public class PlayerPowerHandler : MonoBehaviour
     private void OnEnable()
     {
         _ballBounceEvent.AddListener(OnBallBounce);
-        _ballPassMiddle.AddListener(OnBallPassMiddleFunc);
+        _ballPassMiddleEvent.AddListener(OnBallPassMiddleFunc);
         _skillActiveSelectedEvent.AddListener(OnSkillActiveSelected);
         _skillPassiveSelectedEvent.AddListener(OnSkillPassiveSelected);
     }
@@ -78,7 +79,7 @@ public class PlayerPowerHandler : MonoBehaviour
     private void OnDisable()
     {
         _ballBounceEvent.RemoveListener(OnBallBounce);
-        _ballPassMiddle.RemoveListener(OnBallPassMiddleFunc);
+        _ballPassMiddleEvent.RemoveListener(OnBallPassMiddleFunc);
         _skillActiveSelectedEvent.RemoveListener(OnSkillActiveSelected);
         _skillPassiveSelectedEvent.RemoveListener(OnSkillPassiveSelected);
         

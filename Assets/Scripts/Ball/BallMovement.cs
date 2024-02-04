@@ -2,12 +2,13 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 public class BallMovement : MonoBehaviour
 {
     [Header("Game Events")]
     [SerializeField] private GameEvent_PlayerType _ballBounceEvent;
-    [SerializeField] private GameEvent _ballPassMiddle;
+    [SerializeField] private GameEvent _ballPassMiddleEvent;
     
     [SerializeField] private float baseSpeed = 1f; // shouldn't be here
     [SerializeField] private Vector3 ballDirection = new Vector3(1, 0, 0);
@@ -173,12 +174,13 @@ public class BallMovement : MonoBehaviour
         if (!hit.transform.TryGetComponent(out midPoint)) return;
         if(_middleHitRequest) return;
         _middleHitRequest = true;
+        
         _inWhatArea = SwitchAreaFrom(_inWhatArea);
         if (DestroyOnMiddle)
         {
             Destroy(gameObject);
         }
-        _ballPassMiddle.TriggerEvent();
+        _ballPassMiddleEvent.TriggerEvent();
     }
 
     private void OnDrawGizmos()

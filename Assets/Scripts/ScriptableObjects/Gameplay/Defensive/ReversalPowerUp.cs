@@ -57,7 +57,7 @@ public class ReversalPowerUp : PowerUpClass
         
     }
 
-    private void PassiveDone()
+    protected override void PassiveDone()
     {
         
     }
