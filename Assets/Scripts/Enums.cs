@@ -1,5 +1,6 @@
 public enum PlayerType
 {
     PlayerOne,
-    PlayerTwo
+    PlayerTwo,
+    Default
 }

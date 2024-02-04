@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -14,7 +15,6 @@ public class MatchSystem : MySystem
     [SerializeField] private Menu _powerUpSelecMenu;
 
     [Header("Game Events")] 
-    [SerializeField] private GameEvent _playerLoadedEvent;
     [SerializeField] private GameEvent _levelLoadedEvent;
     [SerializeField] private GameEvent _matchReadyEvent;
     [SerializeField] private GameEvent _matchBeginEvent;
@@ -34,11 +34,22 @@ public class MatchSystem : MySystem
     private int[] _playersRoundScore;
     private int _currentRound;
     private int _currentLevel;
-    
+    private PlayerType _lastMatchWinner = PlayerType.Default;
+
+    private LevelLoader _levelLoader;
+
+    public PlayerType LastMatchWinner => _lastMatchWinner;
+
+    private void Start()
+    {
+        _levelLoader = SystemRoot.instance.GetSystem<LevelLoader>();
+    }
+
     private void ResetGameData()
     {
         _playersMatchScore = new int[2];
         _matchCount = 0;
+        _lastMatchWinner = PlayerType.Default;
     }
 
     private void RestartMatchData()
@@ -76,9 +87,7 @@ public class MatchSystem : MySystem
     public void EndGame(PlayerType winner)
     {
         _isGameOnGoing = false;
-        // LevelLoader.instance.LoadMenu();
         SceneManager.LoadScene(1);
-        // StartSystem();
     }
 
     private void PrepareMatch(int level)
@@ -88,7 +97,7 @@ public class MatchSystem : MySystem
         _currentLevel = level;
         
         RestartMatchData();
-        LevelLoader.instance.LoadLevel(level, _matchCount == 0);
+        _levelLoader.LoadLevel(level, _matchCount == 0);
         _levelLoadedEvent.AddListener(OnLevelLoaded);
     }
 
@@ -119,17 +128,18 @@ public class MatchSystem : MySystem
         _isMatchOnGoing = false;
         _matchCount += 1;
         
+        _lastMatchWinner = winner;
         _playersMatchScore[(int)winner] += 1;
         if (_playersMatchScore[(int)winner] >= _matchWinCount)
         {
             Debug.Log($"match ended and game too");
-            LevelLoader.instance.UnloadLevel(_currentLevel);
+            _levelLoader.UnloadLevel(_currentLevel);
             EndGame(winner);
             return;
         }
         
         Debug.Log($"unload level");
-        LevelLoader.instance.UnloadLevel(_currentLevel);
+        _levelLoader.UnloadLevel(_currentLevel);
         _levelUnloadedEvent.AddListener(OnLevelUnloaded);
     }
 
@@ -161,7 +171,7 @@ public class MatchSystem : MySystem
     private void RoundEnd(PlayerType roundWinner)
     {
         _roundEndEvent.RemoveListener(RoundEnd);
-        
+
         _playersRoundScore[(int)roundWinner] += 1;
         if (_playersRoundScore[(int)roundWinner] >= _roundWinCount)
         {

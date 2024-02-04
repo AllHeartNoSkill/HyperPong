@@ -6,6 +6,9 @@ using UnityEngine;
 public class SystemRoot : Singleton<SystemRoot>
 {
     private Dictionary<Type, MySystem> _systems = new Dictionary<Type, MySystem>();
+
+    private Dictionary<PlayerType, PlayerMovement>
+        _playerMovements = new Dictionary<PlayerType, PlayerMovement>();
     
     protected override void Awake()
     {
@@ -14,6 +17,12 @@ public class SystemRoot : Singleton<SystemRoot>
         foreach (var system in systems)
         {
             _systems.Add(system.GetType(), system);
+        }
+
+        PlayerMovement[] players = transform.GetComponentsInChildren<PlayerMovement>();
+        foreach (var player in players)
+        {
+            _playerMovements.Add(player.PlayerType, player);
         }
     }
 
@@ -36,5 +45,15 @@ public class SystemRoot : Singleton<SystemRoot>
     public T GetSystem<T>() where T : MySystem
     {
         return _systems[typeof(T)] as T;
+    }
+
+    public PlayerMovement GetPlayerMovement(PlayerType playerType)
+    {
+        return _playerMovements[playerType];
+    }
+
+    public PlayerPowerHandler GetPlayerPowerHandler(PlayerType playerType)
+    {
+        return _playerMovements[playerType].GetComponent<PlayerPowerHandler>();
     }
 }

@@ -69,22 +69,17 @@ public class PowerUpClass : MonoBehaviour
     }
 
     public virtual void PassiveOnBounceFromPlayer()
-    {
-        
-    }
+    { }
 
     public virtual void PassiveOnBounceFromEnemy()
-    {
-        
-    }
+    { }
 
     public virtual void PassiveOnPassMiddle()
-    {
-        
-    }
+    { }
 
     public virtual void PassiveModifier(PlayerPowerHandler playerPowerHandler, PlayerType playerType)
-    {
-        
-    }
+    { }
+    
+    protected virtual void PassiveDone()
+    { }
 }

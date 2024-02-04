@@ -2,10 +2,15 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class InvisibleBallPowerUp : PowerUpClass
+public class ExplosivePowerUp : PowerUpClass
 {
+    [Header("Active")]
+    [SerializeField] private float _activeSpeedMultiplier = 2f;
+    
     [Header("Passive")]
     [SerializeField] private float _passiveDuration = 0.3f;
+
+    [SerializeField] private float _passiveSpeedMultipler = 0.1f;
     
     private bool _isPassiveOnGoing = false;
     private float _passiveCountdown;
@@ -25,14 +30,14 @@ public class InvisibleBallPowerUp : PowerUpClass
 
     public override bool TryToActivate(PlayerType player, PlayerPowerHandler playerPowerHandler)
     {
-        Debug.Log("Try To Activate Invisible PU");
+        Debug.Log("Try To Activate Explosion PU");
         if (!base.TryToActivate(player, playerPowerHandler)) return false;
         return true;
     }
 
     public override void Activate(PlayerType player)
     {
-        Debug.Log("Done Queueing Invisible PU");
+        Debug.Log("Done Queueing Explosion PU");
         _playerPowerHandler.OnBallBounceFromPlayer += EffectActivated;
     }
 
@@ -41,31 +46,24 @@ public class InvisibleBallPowerUp : PowerUpClass
         base.EffectActivated();
         
         _playerPowerHandler.OnBallBounceFromPlayer -= EffectActivated;
-        _playerPowerHandler.OnBallPassMiddle += EffectDone;
+        _playerPowerHandler.OnBallBounceFromPlayer += EffectDone;
 
-        LevelLoadedData.SpawnedBall.GetComponent<SpriteRenderer>().enabled = false;
-        Debug.Log("ACTIVATE BALL INVISIBLE");
+        Debug.Log("ACTIVATE EXPLOSION");
     }
 
     protected override void EffectDone()
     {
         base.EffectDone();
-        
-        LevelLoadedData.SpawnedBall.GetComponent<SpriteRenderer>().enabled = true;
-        _playerPowerHandler.OnBallPassMiddle -= EffectDone;
+        _playerPowerHandler.OnBallBounceFromPlayer -= EffectDone;
     }
 
     public override void PassiveOnBounceFromPlayer()
     {
-        if(_isPassiveOnGoing) return;
-        LevelLoadedData.SpawnedBall.GetComponent<SpriteRenderer>().enabled = false;
-        _passiveCountdown = 0;
-        _isPassiveOnGoing = true;
+        
     }
 
     protected override void PassiveDone()
     {
-        _isPassiveOnGoing = false;
-        LevelLoadedData.SpawnedBall.GetComponent<SpriteRenderer>().enabled = true;
+        
     }
 }

@@ -54,15 +54,11 @@ public class ReversalPowerUp : PowerUpClass
 
     public override void PassiveOnBounceFromPlayer()
     {
-    //     if(_isPassiveOnGoing) return;
-    //     LevelLoadedData.SpawnedBall.GetComponent<SpriteRenderer>().enabled = false;
-    //     _passiveCountdown = 0;
-    //     _isPassiveOnGoing = true;
+        
     }
 
-    private void PassiveDone()
+    protected override void PassiveDone()
     {
-    //     _isPassiveOnGoing = false;
-    //     LevelLoadedData.SpawnedBall.GetComponent<SpriteRenderer>().enabled = true;
+        
     }
 }

@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using Unity.Mathematics;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.Serialization;
 
 public class PlayerPowerHandler : MonoBehaviour
 {
@@ -11,7 +12,7 @@ public class PlayerPowerHandler : MonoBehaviour
     [SerializeField] private GameEvent_PlayerType_PowerCard _skillActiveSelectedEvent;
     [SerializeField] private GameEvent_PlayerType_PowerCard _skillPassiveSelectedEvent;
     [SerializeField] private GameEvent_PlayerType _ballBounceEvent;
-    [SerializeField] private GameEvent _ballPassMiddle;
+    [SerializeField] private GameEvent _ballPassMiddleEvent;
 
     [Header("Test Param")]
     [SerializeField] private bool _testPowerUp = false;
@@ -27,6 +28,7 @@ public class PlayerPowerHandler : MonoBehaviour
     [SerializeField] private List<PowerUpClass> _passiveDefenseList = new List<PowerUpClass>();
     
     private List<PowerUpClass> _allPowerUps = new List<PowerUpClass>();
+    private List<PowerCard> _allPowerCards = new List<PowerCard>();
     private List<PowerUpClass> _allPassivesList = new List<PowerUpClass>();
 
     public Action OnBallBounceFromPlayer;
@@ -35,7 +37,9 @@ public class PlayerPowerHandler : MonoBehaviour
 
     private PlayerMovement _player;
     private Transform _spawnedSkillContainer;
-    
+
+    public List<PowerCard> AllPowerCards => _allPowerCards;
+
     private void Awake()
     {
         _player = GetComponent<PlayerMovement>();
@@ -48,10 +52,10 @@ public class PlayerPowerHandler : MonoBehaviour
         
         if (_testPowerUp)
         {
-            if(_testActivePower != null) OnSkillActiveSelected(_player.PlayerType1, _testActivePower);
+            if(_testActivePower != null) OnSkillActiveSelected(_player.PlayerType, _testActivePower);
             foreach (PowerCard powerCard in _testPassivePowers)
             {
-                OnSkillPassiveSelected(_player.PlayerType1, powerCard);
+                OnSkillPassiveSelected(_player.PlayerType, powerCard);
             }
         }
     }
@@ -67,7 +71,7 @@ public class PlayerPowerHandler : MonoBehaviour
     private void OnEnable()
     {
         _ballBounceEvent.AddListener(OnBallBounce);
-        _ballPassMiddle.AddListener(OnBallPassMiddleFunc);
+        _ballPassMiddleEvent.AddListener(OnBallPassMiddleFunc);
         _skillActiveSelectedEvent.AddListener(OnSkillActiveSelected);
         _skillPassiveSelectedEvent.AddListener(OnSkillPassiveSelected);
     }
@@ -75,7 +79,7 @@ public class PlayerPowerHandler : MonoBehaviour
     private void OnDisable()
     {
         _ballBounceEvent.RemoveListener(OnBallBounce);
-        _ballPassMiddle.RemoveListener(OnBallPassMiddleFunc);
+        _ballPassMiddleEvent.RemoveListener(OnBallPassMiddleFunc);
         _skillActiveSelectedEvent.RemoveListener(OnSkillActiveSelected);
         _skillPassiveSelectedEvent.RemoveListener(OnSkillPassiveSelected);
         
@@ -91,17 +95,6 @@ public class PlayerPowerHandler : MonoBehaviour
         }
     }
 
-    private void OnSkillPassiveSelected(PlayerType playerType, PowerCard powerCard)
-    {
-        if(playerType != _player.PlayerType1) return;
-        
-        PowerUpClass spawnedPower =
-            Instantiate(powerCard.PowerUpPrefab, transform.position, quaternion.identity, _spawnedSkillContainer);
-        
-        _allPowerUps.Add(spawnedPower);
-        PassiveAddListener(spawnedPower);
-    }
-
     private void PassiveAddListener(PowerUpClass powerUpClass)
     {
         _allPassivesList.Add(powerUpClass);
@@ -109,16 +102,31 @@ public class PlayerPowerHandler : MonoBehaviour
         OnBallBounceFromPlayer += powerUpClass.PassiveOnBounceFromPlayer;
         OnBallBounceFromEnemy += powerUpClass.PassiveOnBounceFromEnemy;
         OnBallPassMiddle += powerUpClass.PassiveOnPassMiddle;
-        powerUpClass.PassiveModifier(this, _player.PlayerType1);
+        powerUpClass.PassiveModifier(this, _player.PlayerType);
+    }
+    
+    private void OnSkillPassiveSelected(PlayerType playerType, PowerCard powerCard)
+    {
+        if(playerType != _player.PlayerType) return;
+        
+        PowerUpClass spawnedPower =
+            Instantiate(powerCard.PowerUpPrefab, transform.position, quaternion.identity, _spawnedSkillContainer);
+        
+        _allPowerUps.Add(spawnedPower);
+        _allPowerCards.Add(powerCard);
+        
+        PassiveAddListener(spawnedPower);
     }
 
     private void OnSkillActiveSelected(PlayerType playerType, PowerCard powerCard)
     {
-        if(playerType != _player.PlayerType1) return;
+        if(playerType != _player.PlayerType) return;
         
         PowerUpClass spawnedPower =
             Instantiate(powerCard.PowerUpPrefab, transform.position, quaternion.identity, _spawnedSkillContainer);
+        
         _allPowerUps.Add(spawnedPower);
+        _allPowerCards.Add(powerCard);
 
         if (powerCard.type == 0)
         {
@@ -152,7 +160,7 @@ public class PlayerPowerHandler : MonoBehaviour
 
     private void OnBallBounce(PlayerType bounceFrom)
     {
-        if (bounceFrom == _player.PlayerType1)
+        if (bounceFrom == _player.PlayerType)
         {
             BallBounceFromPlayer();
         }
@@ -182,9 +190,9 @@ public class PlayerPowerHandler : MonoBehaviour
         //Offensive skill
         if (context.phase != InputActionPhase.Started) return;
         if (_activeOffense == null) return;
-        if (!_activeOffense.TryToActivate(_player.PlayerType1, this)) return;
+        if (!_activeOffense.TryToActivate(_player.PlayerType, this)) return;
         
-        _activeOffense.Activate(_player.PlayerType1);
+        _activeOffense.Activate(_player.PlayerType);
     }
 
     public void Skill2(InputAction.CallbackContext context)
@@ -192,9 +200,9 @@ public class PlayerPowerHandler : MonoBehaviour
         //Defensive skill
         if (context.phase != InputActionPhase.Started) return;
         if (_activeDefense == null) return;
-        if (!_activeDefense.TryToActivate(_player.PlayerType1, this)) return;
+        if (!_activeDefense.TryToActivate(_player.PlayerType, this)) return;
         
-        _activeDefense.Activate(_player.PlayerType1);
+        _activeDefense.Activate(_player.PlayerType);
     }
 }
 

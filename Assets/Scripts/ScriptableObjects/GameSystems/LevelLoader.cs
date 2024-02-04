@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class LevelLoader : Singleton<LevelLoader>
+public class LevelLoader : MySystem
 {
     [SerializeField] private int _sceneOffset = 3;
     [Header("Game Events")] 
