@@ -12,4 +12,6 @@ public class LevelLoadedData : ScriptableObject
     public BallMovement SpawnedBall;
     public float PlayerMoveSpeed;
     public float PlayerLength;
+    public LevelArea PlayerOneArea;
+    public LevelArea PlayerTwoArea;
 }

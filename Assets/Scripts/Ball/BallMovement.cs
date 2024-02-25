@@ -32,6 +32,8 @@ public class BallMovement : MonoBehaviour
     private PlayerType _owner;
     private PlayerType _inWhatArea;
 
+    private Rigidbody _rb;
+
     private List<GameObject> _ignoredRaycastObj = new List<GameObject>(); 
     
     public bool DestroyOnMiddle { get; set; }
@@ -39,11 +41,15 @@ public class BallMovement : MonoBehaviour
     public PlayerType InWhatArea => _inWhatArea;
 
     public float BaseSpeed => baseSpeed;
+    
+    public SpriteRenderer Sprite { get; private set; }
 
     private void Awake()
     {
         _ballTransform = gameObject.transform;
         _currentPosition = _ballTransform.position;
+        _rb = GetComponent<Rigidbody>();
+        Sprite = GetComponentInChildren<SpriteRenderer>();
     }
 
     public void SetData(float minSpeed, float maxSpeed, float speedIncrement, float roundRestartIncrementMul)
@@ -75,110 +81,69 @@ public class BallMovement : MonoBehaviour
         _lastFramePosition = _currentPosition;
         MoveBall();
         _currentPosition = _ballTransform.position;
-        CheckForCollision(_lastFramePosition, Vector3.Distance(_currentPosition, _lastFramePosition));
     }
 
     [ContextMenu("Reset Ball")]
     private void ResetBall()
     {
         _ballTransform.position = new Vector3(0f, 0, 0);
-        ballDirection = new Vector3(1, 0, 0);
+        ballDirection = new Vector3(1, 1, 0);
         _currentPosition = _ballTransform.position;
     }
 
     void MoveBall(){
         // determine speed modifier from direction
-        _ballTransform.position += baseSpeed  * Time.deltaTime * ballDirection;
+        _rb.velocity = ballDirection * baseSpeed;
     }
 
-    void CheckForCollision(Vector3 startPosition, float distance = 1f){
-        RaycastHit hit;
-        float distanceToObstacle = 0;
-
-        if (Physics.SphereCast(startPosition, castRadius, ballDirection, out hit, distance, _collisionLayers))
-        {
-            distanceToObstacle = hit.distance;
-            ReflectBall(hit);
-        }
-        
-        ClearIgnoredObjects();
-    }
-
-    private void ClearIgnoredObjects()
+    private void OnCollisionEnter(Collision other)
     {
-        foreach (var ignoredObj in _ignoredRaycastObj)
+        var collisionContact = other.GetContact(0);
+        List<ContactPoint> contacts = new List<ContactPoint>();
+        other.GetContacts(contacts);
+        if (other.collider.TryGetComponent(out LevelGoal goalPost))
         {
-            ignoredObj.layer = 0;
+            goalPost.BallTouchGoal();
+            baseSpeed = Mathf.Clamp(baseSpeed - (_speedIncrement * _roundRestartIncrementMul), _minBallSpeed, _maxBallSpeed);
+            gameObject.SetActive(false);
         }
-        _ignoredRaycastObj.Clear();
-    }
-
-    private void ReflectBall(RaycastHit hit)
-    {
-        CheckGoalPost(hit);
-        CheckMiddleArea(hit);
-
-        Vector3 correctedNextPosition = hit.point + (hit.normal * castRadius);
-        if (hit.collider.isTrigger)
+        else if (other.collider.TryGetComponent(out PlayerMovement player))
         {
-            GameObject colliderObj = hit.collider.gameObject;
-            colliderObj.layer = 2;
-            _ignoredRaycastObj.Add(colliderObj);
-            CheckForCollision(correctedNextPosition, Vector3.Distance(_currentPosition, correctedNextPosition));
-            return;
-        }
+            ballDirection = player.GetDirectionRelativeToPlayer(collisionContact.point);
+            _owner = player.PlayerType;
+            _ballBounceEvent.TriggerEvent(_owner);
 
-        _ballTransform.position = correctedNextPosition;
-        _currentPosition = _ballTransform.position;
-        
-        if (hit.transform.TryGetComponent(out PlayerMovement player))
-        {
-            ballDirection = player.GetDirectionRelativeToPlayer(hit.point);
-            CollideWithPlayer(player);
+            baseSpeed = Mathf.Clamp(baseSpeed + _speedIncrement, _minBallSpeed, _maxBallSpeed);
         }
         else
         {
             _ballWallBounce.TriggerEvent();
-            ballDirection = Vector3.Reflect(ballDirection, hit.normal).normalized;
+            ballDirection = Vector3.Reflect(ballDirection, collisionContact.normal).normalized;
         }
-
-        _middleHitRequest = false;
-
-        ballDirection.z = 0;
     }
 
-    private void CollideWithPlayer(PlayerMovement player)
+    private void OnTriggerStay(Collider other)
     {
-        _owner = player.PlayerType;
-        _inWhatArea = SwitchAreaFrom(_owner);
-        _ballBounceEvent.TriggerEvent(_owner);
-
-        baseSpeed = Mathf.Clamp(baseSpeed + _speedIncrement, _minBallSpeed, _maxBallSpeed);
-    }
-
-    private PlayerType SwitchAreaFrom(PlayerType currentArea)
-    {
-        return currentArea == PlayerType.PlayerOne ? PlayerType.PlayerTwo : PlayerType.PlayerOne;
-    }
-
-    private void CheckGoalPost(RaycastHit hit)
-    {
-        if (hit.transform.TryGetComponent(out LevelGoal goal))
+        if (other.CompareTag("PlayerOneArea"))
         {
-            goal.BallTouchGoal();
-            baseSpeed = Mathf.Clamp(baseSpeed - (_speedIncrement * _roundRestartIncrementMul), _minBallSpeed, _maxBallSpeed);
-            gameObject.SetActive(false);
+            if (_inWhatArea != PlayerType.PlayerOne)
+            {
+                SwitchArea();
+            }
         }
+        else if (other.CompareTag("PlayerTwoArea"))
+        {
+            if (_inWhatArea != PlayerType.PlayerTwo)
+            {
+                SwitchArea();
+            }
+        } 
     }
 
-    private void CheckMiddleArea(RaycastHit hit)
+    private void SwitchArea()
     {
-        LevelMiddle midPoint;
-        if (!hit.transform.TryGetComponent(out midPoint)) return;
-        if(_middleHitRequest) return;
-        _middleHitRequest = true;
+        _inWhatArea = _inWhatArea == PlayerType.PlayerOne ? PlayerType.PlayerTwo : PlayerType.PlayerOne;
         
-        _inWhatArea = SwitchAreaFrom(_inWhatArea);
         if (DestroyOnMiddle)
         {
             Destroy(gameObject);
@@ -188,12 +153,11 @@ public class BallMovement : MonoBehaviour
 
     private void OnDrawGizmos()
     {
-        Gizmos.DrawSphere(transform.position, castRadius);
         Gizmos.DrawLine(_lastFramePosition, _currentPosition);
     }
 
     public void ReverseDirection()
     {
-        ballDirection = ballDirection * -1f;
+        ballDirection *= -1f;
     }
 }

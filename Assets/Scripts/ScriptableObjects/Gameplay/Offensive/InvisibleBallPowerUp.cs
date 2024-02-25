@@ -43,7 +43,7 @@ public class InvisibleBallPowerUp : PowerUpClass
         _playerPowerHandler.OnBallBounceFromPlayer -= EffectActivated;
         _playerPowerHandler.OnBallPassMiddle += EffectDone;
 
-        LevelLoadedData.SpawnedBall.GetComponent<SpriteRenderer>().enabled = false;
+        LevelLoadedData.SpawnedBall.Sprite.enabled = false;
         Debug.Log("ACTIVATE BALL INVISIBLE");
     }
 
@@ -51,14 +51,14 @@ public class InvisibleBallPowerUp : PowerUpClass
     {
         base.EffectDone();
         
-        LevelLoadedData.SpawnedBall.GetComponent<SpriteRenderer>().enabled = true;
+        LevelLoadedData.SpawnedBall.Sprite.enabled = true;
         _playerPowerHandler.OnBallPassMiddle -= EffectDone;
     }
 
     public override void PassiveOnBounceFromPlayer()
     {
         if(_isPassiveOnGoing) return;
-        LevelLoadedData.SpawnedBall.GetComponent<SpriteRenderer>().enabled = false;
+        LevelLoadedData.SpawnedBall.Sprite.enabled = false;
         _passiveCountdown = 0;
         _isPassiveOnGoing = true;
     }
@@ -66,6 +66,6 @@ public class InvisibleBallPowerUp : PowerUpClass
     protected override void PassiveDone()
     {
         _isPassiveOnGoing = false;
-        LevelLoadedData.SpawnedBall.GetComponent<SpriteRenderer>().enabled = true;
+        LevelLoadedData.SpawnedBall.Sprite.enabled = true;
     }
 }
