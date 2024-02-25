@@ -53,6 +53,17 @@ public class PlayerMovement : MonoBehaviour
             ? _levelLoadedData.PlayerOnePath
             : _levelLoadedData.PlayerTwoPath;
 
+        if (_playerType == PlayerType.PlayerOne)
+        {
+            _levelLoadedData.PlayerOneArea.AreaOwner = _playerType;
+            _levelLoadedData.PlayerOneArea.tag = "PlayerOneArea";
+        }
+        else
+        {
+            _levelLoadedData.PlayerTwoArea.AreaOwner = _playerType;
+            _levelLoadedData.PlayerTwoArea.tag = "PlayerTwoArea";
+        }
+
         _speed = _levelLoadedData.PlayerMoveSpeed;
 
         _scaleVector.z = _levelLoadedData.PlayerLength * _scaleModifier;

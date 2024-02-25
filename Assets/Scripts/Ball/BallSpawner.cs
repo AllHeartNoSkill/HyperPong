@@ -22,6 +22,10 @@ public class BallSpawner : MonoBehaviour
     [SerializeField] private GameEvent_Int _roundStartEvent;
     [SerializeField] private GameEvent_PlayerType _roundEndEvent;
 
+    [Header("Override Direction")] 
+    [SerializeField] private bool _overrideBallDir = false;
+    [SerializeField] private Vector3 _overrideDirection = new Vector3(1f, 1f, 0f);
+    
     private bool _isFirstRound = true;
     private float _ballXDir;
     private BallMovement _spawnedBall;
@@ -74,8 +78,8 @@ public class BallSpawner : MonoBehaviour
         }
 
         float choosenAngle = 90f * _ballXDir;
-        Vector3 ballDirection = Quaternion.AngleAxis(choosenAngle, Vector3.forward) * Vector3.up;
-        // Debug.Log($"angle: {choosenAngle} == ball direction: {ballDirection}");
+        Vector3 ballDirection = _overrideBallDir ? _overrideDirection : Quaternion.AngleAxis(choosenAngle, Vector3.forward) * Vector3.up;
+        Debug.Log($"angle: {choosenAngle} == ball direction: {ballDirection}");
         _spawnedBall.Init(ballDirection, _lastRoundWinner);
     }
 

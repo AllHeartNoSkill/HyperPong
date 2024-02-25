@@ -8,6 +8,8 @@ TagManager:
   - Ball
   - Player1
   - Player2
+  - PlayerOneArea
+  - PlayerTwoArea
   layers:
   - Default
   - TransparentFX
@@ -15,7 +17,7 @@ TagManager:
   - 
   - Water
   - UI
-  - 
+  - Balls
   - 
   - 
   - 

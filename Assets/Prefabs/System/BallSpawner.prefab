@@ -49,7 +49,7 @@ MonoBehaviour:
   _ballPrefab: {fileID: 6709257163267862226, guid: f556d7a46eaed924296bffe91de270fe, type: 3}
   _ballSpawnPoint: {fileID: 0}
   _minBallSpeed: 10
-  _maxBallSpeed: 250
+  _maxBallSpeed: 25
   _speedIncrement: 0.2
   _roundRestartIncrementMul: 3
   _roundStartEvent: {fileID: 11400000, guid: 24c55440966617d4789279d81cd3abe7, type: 2}
