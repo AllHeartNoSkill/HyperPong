@@ -1,0 +1,38 @@
+[gd_scene load_steps=5 format=3 uid="uid://b2wxwdlwjal0s"]
+
+[ext_resource type="Script" path="res://Scripts/Tests/Dynamic_Collision_Test.cs" id="1_fc4bv"]
+[ext_resource type="ArrayMesh" uid="uid://dkppv77khlnqs" path="res://Nodes/Box Test.tres" id="1_ujhuu"]
+
+[sub_resource type="Curve3D" id="Curve3D_nl3wv"]
+_data = {
+"points": PackedVector3Array(0, 0, 0, 0, 0, 0, 0, 0, 0, -1.89698, -0.386996, -0.159417, 1.89698, 0.386996, 0.159417, 1.23515, -1.09442, 2.08472, 0, 0, 0, 0, 0, 0, 4.375, 0, 0),
+"tilts": PackedFloat32Array(0.539271, -0.55304, 0)
+}
+point_count = 3
+
+[sub_resource type="BoxMesh" id="BoxMesh_3exc0"]
+
+[node name="PlayTest" type="Node3D"]
+
+[node name="Path3D" type="Path3D" parent="."]
+transform = Transform3D(-0.137684, 0.990464, 0.00494766, -0.432775, -0.0646517, 0.899181, 0.890926, 0.121662, 0.43755, -2.29287, 0, 0)
+curve = SubResource("Curve3D_nl3wv")
+
+[node name="PathFollow3D" type="PathFollow3D" parent="Path3D"]
+transform = Transform3D(-0.251208, -0.201907, -0.946619, -0.557475, 0.829664, -0.0290196, 0.791247, 0.52044, -0.320982, 0.735552, -1.15796, 1.98626)
+progress = 2.69297
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Path3D/PathFollow3D"]
+transform = Transform3D(1, 3.25963e-09, 4.65661e-10, -4.65661e-09, 1, -2.1684e-18, 1.00117e-08, 3.26345e-17, 1, -7.45931e-17, -2.79397e-08, 3.53903e-08)
+mesh = SubResource("BoxMesh_3exc0")
+skeleton = NodePath("../../../Node3D")
+
+[node name="Node3D" type="Node3D" parent="."]
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Node3D"]
+mesh = ExtResource("1_ujhuu")
+"blend_shapes/Key 1" = 0.54369
+script = ExtResource("1_fc4bv")
+mesh = ExtResource("1_ujhuu")
+
+[node name="Node3D2" type="Node3D" parent="."]
