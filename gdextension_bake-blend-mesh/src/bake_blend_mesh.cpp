@@ -37,9 +37,9 @@ Ref<ArrayMesh> BakeBlendMesh::bake_mesh_from_current_blend_shape_mix(Ref<ArrayMe
 
 		ERR_FAIL_COND_V(source_mesh_arrays.size() != Mesh::ARRAY_MAX, Ref<ArrayMesh>());
 
-		const Vector<Vector3> &source_mesh_vertex_array = source_mesh_arrays[Mesh::ARRAY_VERTEX];
-		const Vector<Vector3> &source_mesh_normal_array = source_mesh_arrays[Mesh::ARRAY_NORMAL];
-		const Vector<float> &source_mesh_tangent_array = source_mesh_arrays[Mesh::ARRAY_TANGENT];
+		const PackedVector3Array &source_mesh_vertex_array = source_mesh_arrays[Mesh::ARRAY_VERTEX];
+		const PackedVector3Array &source_mesh_normal_array = source_mesh_arrays[Mesh::ARRAY_NORMAL];
+		const PackedFloat32Array &source_mesh_tangent_array = source_mesh_arrays[Mesh::ARRAY_TANGENT];
 
 		Array new_mesh_arrays;
 		new_mesh_arrays.resize(Mesh::ARRAY_MAX);
@@ -55,9 +55,9 @@ Ref<ArrayMesh> BakeBlendMesh::bake_mesh_from_current_blend_shape_mix(Ref<ArrayMe
 		bool use_normal_array = source_mesh_normal_array.size() == source_mesh_vertex_array.size();
 		bool use_tangent_array = source_mesh_tangent_array.size() / 4 == source_mesh_vertex_array.size();
 
-		Vector<Vector3> lerped_vertex_array = source_mesh_vertex_array;
-		Vector<Vector3> lerped_normal_array = source_mesh_normal_array;
-		Vector<float> lerped_tangent_array = source_mesh_tangent_array;
+		PackedVector3Array lerped_vertex_array = source_mesh_vertex_array;
+		PackedVector3Array lerped_normal_array = source_mesh_normal_array;
+		PackedFloat32Array lerped_tangent_array = source_mesh_tangent_array;
 
 		const Vector3 *source_vertices_ptr = source_mesh_vertex_array.ptr();
 		const Vector3 *source_normals_ptr = source_mesh_normal_array.ptr();
@@ -81,9 +81,9 @@ Ref<ArrayMesh> BakeBlendMesh::bake_mesh_from_current_blend_shape_mix(Ref<ArrayMe
 
 			const Array &blendshape_mesh_arrays = blendshapes_mesh_arrays[blendshape_index];
 
-			const Vector<Vector3> &blendshape_vertex_array = blendshape_mesh_arrays[Mesh::ARRAY_VERTEX];
-			const Vector<Vector3> &blendshape_normal_array = blendshape_mesh_arrays[Mesh::ARRAY_NORMAL];
-			const Vector<float> &blendshape_tangent_array = blendshape_mesh_arrays[Mesh::ARRAY_TANGENT];
+			const PackedVector3Array &blendshape_vertex_array = blendshape_mesh_arrays[Mesh::ARRAY_VERTEX];
+			const PackedVector3Array &blendshape_normal_array = blendshape_mesh_arrays[Mesh::ARRAY_NORMAL];
+			const PackedFloat32Array &blendshape_tangent_array = blendshape_mesh_arrays[Mesh::ARRAY_TANGENT];
 
 			ERR_FAIL_COND_V(source_mesh_vertex_array.size() != blendshape_vertex_array.size(), Ref<ArrayMesh>());
 			ERR_FAIL_COND_V(source_mesh_normal_array.size() != blendshape_normal_array.size(), Ref<ArrayMesh>());
@@ -180,6 +180,7 @@ Ref<ArrayMesh> BakeBlendMesh::bake_mesh_from_current_blend_shape_mix(Ref<ArrayMe
 
 void BakeBlendMesh::_bind_methods()
 {
+	ClassDB::bind_method(D_METHOD("bake_mesh_from_current_blend_shape_mix", "p_existing"), &BakeBlendMesh::bake_mesh_from_current_blend_shape_mix, DEFVAL(Ref<ArrayMesh>()));
 }
 
 BakeBlendMesh::BakeBlendMesh()

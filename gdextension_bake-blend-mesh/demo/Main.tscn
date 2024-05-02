@@ -1,6 +1,11 @@
-[gd_scene format=3 uid="uid://dnq35bo4oytdy"]
+[gd_scene load_steps=2 format=3 uid="uid://dnq35bo4oytdy"]
+
+[ext_resource type="Script" path="res://Main.gd" id="1_nfh34"]
 
 [node name="Main" type="Node3D"]
+script = ExtResource("1_nfh34")
 
 [node name="GDExample3D" type="GDExample3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 19.9301, 0.458436, 0.458436)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 19.997, 0.83269, 0.83269)
+
+[node name="BakeBlendMesh" type="BakeBlendMesh" parent="."]
