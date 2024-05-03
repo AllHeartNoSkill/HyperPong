@@ -1,7 +1,7 @@
 [gd_scene load_steps=11 format=3 uid="uid://b2wxwdlwjal0s"]
 
-[ext_resource type="ArrayMesh" uid="uid://bmdqgqqoytr1n" path="res://Nodes/Dynamic Leve.tres" id="1_bngib"]
-[ext_resource type="Script" path="res://Nodes/DynamicCollisions.gd" id="2_adhfx"]
+[ext_resource type="ArrayMesh" uid="uid://bmdqgqqoytr1n" path="res://Models/Dynamic Leve.tres" id="1_bngib"]
+[ext_resource type="Script" path="res://Scripts/Tests/DynamicCollisions.cs" id="2_i7pd0"]
 
 [sub_resource type="Curve3D" id="Curve3D_nl3wv"]
 _data = {
@@ -80,7 +80,8 @@ skeleton = NodePath("../../../Node3D")
 mesh = ExtResource("1_bngib")
 blend_shapes/Flip = 0.0
 blend_shapes/Scale = 0.83495
-script = ExtResource("2_adhfx")
+script = ExtResource("2_i7pd0")
+blend_shapes/Flip = 0.0
 
 [node name="StaticBody3D" type="StaticBody3D" parent="Node3D/BakeBlendMesh"]
 
