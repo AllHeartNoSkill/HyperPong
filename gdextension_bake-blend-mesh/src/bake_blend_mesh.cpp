@@ -74,10 +74,10 @@ Ref<ArrayMesh> BakeBlendMesh::bake_mesh_from_current_blend_shape_mix(Ref<ArrayMe
 		for (int blendshape_index = 0; blendshape_index < blend_shape_count; blendshape_index++)
 		{
 			float blend_weight = get_blend_shape_value(blendshape_index);
-			if (abs(blend_weight) <= 0.0001)
-			{
-				continue;
-			}
+			// if (abs(blend_weight) <= 0.0001)
+			// {
+			// 	continue;
+			// }
 
 			const Array &blendshape_mesh_arrays = blendshapes_mesh_arrays[blendshape_index];
 

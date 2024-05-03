@@ -3,6 +3,8 @@
 
 #include <godot_cpp/classes/mesh_instance3d.hpp>
 #include <godot_cpp/classes/array_mesh.hpp>
+#include <godot_cpp/templates/local_vector.hpp>
+#include <godot_cpp/variant/variant.hpp>
 
 namespace godot
 {
